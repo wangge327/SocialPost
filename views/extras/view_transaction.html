@@ -1,0 +1,204 @@
+{{ view("includes/head", $data); }}
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+
+<body>
+
+<!-- header start -->
+{{ view("includes/header", $data); }}
+<!-- sidebar -->
+{{ view("includes/sidebar", $data); }}
+
+<div class="content">
+	<div class="page-title">
+		<h3>View Transaction for Drawer-{{$batch->drawer_number}}</h3>
+	</div>
+	<div class="row">
+		<div class="col-md-6" style="margin-bottom: 10px">
+			<div class="light-card table-responsive">
+				<label>Total Cash : &nbsp;</label>
+				<span>${{$total['cash']}}</span>
+				<br>
+				<label>Total Credit Card : &nbsp;</label>
+				<span>${{$total['credit']}}</span>
+				<br>
+				<label>Total Check : &nbsp;</label>
+				<span>${{$total['check']}}</span>
+				<br>
+				<label>Total Security Paid : &nbsp;</label>
+				<span>${{$total['security']}}</span>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="light-card table-responsive">
+				<label>Total Transaction : &nbsp;</label>
+				<span>${{$total['cash']+$total['credit']+$total['check']}}</span>
+				<br>
+				<label>Start time : &nbsp;</label>
+				<span>{{$start_time}}</span>
+				<br>
+				<label>End time : &nbsp;</label>
+				<span>{{$end_time}}</span>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="light-card table-responsive p-b-3em">
+				<div class="custom-filter" style="display: none">
+					<div class="input-group input-daterange">
+						<label style="margin-left: 20px">
+							Date From:
+							<input type="text" id="date_from" >
+						</label>
+
+						<label style="margin-left: 20px">
+							Date to:
+							<input type="text" id="date_to" >
+						</label>
+					</div>
+				</div>
+
+				<table class="table display companies-list"  id="data-table">
+					<thead>
+					<tr>
+						<th class="text-center w-70"></th>
+						<th>Payment type</th>
+						<th>Amount</th>
+						<th>Security Paid</th>
+						<th>Payment date</th>
+						<th>Account paid</th>
+						<th>Unit</th>
+						<th>Transaction number</th>
+						<th>Payment status</th>
+					</tr>
+					</thead>
+					<tbody>
+					@if ( count($invoices) > 0 )
+					@foreach ( $invoices as $index => $invoice )
+					<tr>
+						<th class="text-center">{{ $index + 1 }}</th>
+						<th>{{ $invoice->payment_mode }}</th>
+						<th>${{ $invoice->price }}</th>
+						<th>${{ $invoice->security_paid }}</th>
+						<th>{{ $invoice->created_at }}</th>
+						<th>
+							<a href="{{url('Customer@profile').$invoice->student_id}}">
+							{{ $invoice->name }}
+							</a>
+						</th>
+						<th>{{ $invoice->unit }}</th>
+						<th>{{ $invoice->transaction_id }}</th>
+						<th>{{ $invoice->status }}</th>
+					</tr>
+					@endforeach
+					@else
+					<tr>
+						<td colspan="9" class="text-center">It's empty here</td>
+					</tr>
+					@endif
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<!-- footer -->
+{{ view("includes/footer"); }}
+
+<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+<script src="<?=url("");?>assets/js/jquery-ui.js"></script>
+
+@if ( count($invoices) > 0 )
+<script>
+	$(document).ready(function() {
+
+		var oTable = $('#data-table').DataTable({
+			dom: 'Bfrtip',
+			buttons: [
+				'excelHtml5',
+				{
+					extend: 'pdfHtml5',
+					text: 'PDF',
+					title : "View Transaction for Drawer-{{$batch->drawer_number}}",
+					messageTop: function(){
+						return "Total Cash:${{$total['cash']}}  Credit Card:${{$total['credit']}}  Check:${{$total['check']}}";
+					}
+				}
+			]
+		});
+
+		$(".input-daterange").datepicker({
+			todayHighlight: !0,
+			format: 'yyyy-mm-dd'
+		});
+
+		$(".dataTables_filter").append($(".custom-filter"));
+		$(".custom-filter").show();
+
+		$('#date_from').on('change',function(){
+			search_filter();
+		});
+
+		$('#date_to').on('change',function(){
+			search_filter();
+		});
+	});
+
+	function search_filter(){
+		var date_from = $('#date_from').val();
+		var date_to = $('#date_to').val();
+		var filter_str = "";
+
+		if(date_from == date_to){
+			filter_str = date_from;
+		}
+		else{
+			const dates = getDates(new Date(date_from), new Date(date_to))
+			for(i = 0 ; i < dates.length ; i++){
+				filter_str += dates[i];
+				if(i < (dates.length-1))
+					filter_str += "|";
+			}
+		}
+
+
+		console.log(filter_str);
+		$('#data-table').DataTable().search(filter_str, true, false ).draw();
+		$('input[type=search]').val("");
+	}
+
+	function getDates (startDate, endDate) {
+		const dates = []
+		let currentDate = startDate
+		const addDays = function (days) {
+			const date = new Date(this.valueOf())
+			date.setDate(date.getDate() + days)
+			return date
+		}
+		while (currentDate <= endDate) {
+			dates.push(getFormattedDate(currentDate));
+			currentDate = addDays.call(currentDate, 1);
+		}
+		return dates
+	}
+
+	function getFormattedDate(date) {
+		let year = date.getFullYear();
+		let month = (1 + date.getMonth()).toString().padStart(2, '0');
+		let day = date.getDate().toString().padStart(2, '0');
+
+		return year + '-' + month + '-' + day ;
+	}
+
+
+	let baseUrl = '<?=url("");?>';
+	let csrf='<?=csrf_token();?>';
+</script>
+@endif
+
+<script src="<?= url(""); ?>assets/js/room.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+
+                    <div class="modal-body">
+                        <input type="hidden" name="csrf-token" value="{{ csrf_token(); }}" />
+                        <input type="hidden" name="reportid" value="{{ $report->id }}" />
+                        <p>Update Report info.</p>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Template</label>
+                                    <select class="form-control valid col-md-6" name="template_id">
+                                        @foreach ( $reports_template as $each_template )
+                                        <option @if($each_template->id == $report->template_id)
+                                                selected = "selected"
+                                                @endif
+                                                value="{{$each_template->id}}">{{$each_template->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" name="name" value="{{ $report->name }}" placeholder="Company Name" data-parsley-required="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+	                        <div class="row">
+	                            <div class="col-md-12">
+	                                <label>Description</label>
+									<textarea class="form-control valid" name="description" required="" rows="9" >{{ $report->description }}</textarea>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+
+    
+    <script src="<?=url("");?>assets/js/simcify.min.js"></script>

@@ -1,0 +1,46 @@
+<div class="modal-body" style="height: 100%">
+    <label>Building Name:&nbsp;
+        <span class="color-red" >{{$special_room->building_name}}</span>
+    </label>
+    <br>
+    <label>Room Name:&nbsp;
+        <span class="color-red" >{{$special_room->room_name}}</span>
+    </label>
+    <br>
+    <label>Bed Name:&nbsp;
+        <span class="color-red" >{{$special_room->bed_name}}</span>
+    </label>
+
+    <hr>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-6">
+                <label>Room Weekly Fee($)</label>
+                <input type="number" class="form-control" name="weekly" placeholder="weekly fee" required id="weekly_input" value="{{$special_room->weekly}}">
+            </div>
+            <div class="col-md-6">
+                <label>Room Daily Fee($)</label>
+                <input type="text" class="form-control"  placeholder="daily fee" disabled id="daily_input" value="{{$special_room->daily}}">
+                <input type="hidden" class="form-control" name="daily" placeholder="daily fee" id="daily_input_hidden" value="{{$special_room->daily}}">
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" name="csrf-token" value="{{ csrf_token(); }}"/>
+    <input type="hidden" name="special_room_id" value="{{ $special_room->id }}"/>
+    <hr>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Update Fee</button>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $( "#update-room-fee #weekly_input" ).keyup(function() {
+            var daily_fee = Math.round($(this).val() / 7 * 100) / 100;
+            $( "#update-room-fee #daily_input" ).val(daily_fee);
+            $( "#update-room-fee #daily_input_hidden" ).val(daily_fee);
+        });
+    });
+</script>

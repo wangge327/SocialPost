@@ -1,0 +1,39 @@
+pipelines:
+    branches:
+      develop:
+        - step:
+            name: Dev Deploy
+            script:
+              - apt-get update && apt-get install -y gettext-base
+              - envsubst < deploy-dev.sh > deploy-dev-out.sh
+              - pipe: atlassian/ssh-run:0.2.5
+                variables:
+                  SSH_USER: "$SSH_USER"
+                  SERVER: "$SSH_HOST"
+                  MODE: 'script'
+                  COMMAND: "deploy-dev-out.sh"
+      test:
+        - step:
+            name: Test Deploy
+            script:
+              - apt-get update && apt-get install -y gettext-base
+              - envsubst < deploy-test.sh > deploy-test-out.sh              
+              - pipe: atlassian/ssh-run:0.2.5
+                variables:
+                  SSH_USER: "$SSH_USER"
+                  SERVER: "$SSH_HOST"
+                  MODE: 'script'
+                  COMMAND: "deploy-test-out.sh"
+
+      master:
+        - step:
+            name: Staging Deploy
+            script:
+              - apt-get update && apt-get install -y gettext-base
+              - envsubst < deploy-staging.sh > deploy-staging-out.sh               
+              - pipe: atlassian/ssh-run:0.2.5
+                variables:
+                  SSH_USER: "$SSH_USER"
+                  SERVER: "$SSH_HOST"
+                  MODE: 'script'
+                  COMMAND: "deploy-staging-out.sh" 

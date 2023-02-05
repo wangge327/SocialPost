@@ -1,0 +1,96 @@
+	<div class="modal-body">
+		<p>Update Employer account info.</p>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-12">
+					<label>Company Name</label>
+					<input type="text" class="form-control" name="name" value="{{ $employer->name }}" placeholder="Company Name" data-parsley-required="true">
+					<input type="hidden" name="csrf-token" value="{{ csrf_token(); }}" />
+					<input type="hidden" name="employerid" value="{{ $employer->id }}" />
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-12">
+					<label>Company Information</label>
+					<input type="text" class="form-control" id="company_info" placeholder="Company Information" data-parsley-required="true" name="company_info" value="{{ $employer->company_info }}">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-12">
+					<label>Email address</label>
+					<input type="email" class="form-control" name="email" value="{{ $employer->email }}" placeholder="Email address" data-parsley-required="true">
+				</div>
+			</div>
+		</div>
+
+		<p>Payment Option</p>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-12">
+					<label style="width: 130px;">Room fee : </label>
+					<input type="checkbox" class="switch"  id="room_pay" @if( !empty( $employer->room_pay == 1) ) checked @endif />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label style="width: 130px;">Administration fee : </label>
+					<input type="checkbox" class="switch" id="administration_pay" @if( !empty( $employer->administration_pay == 1) ) checked @endif />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label style="width: 130px;">Security fee : </label>
+					<input type="checkbox" class="switch"  id="security_pay"  @if( !empty( $employer->security_pay == 1) ) checked @endif/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label style="width: 130px;">Laundry fee : </label>
+					<input type="checkbox" class="switch" id="laundry_pay"   @if( !empty( $employer->laundry_pay == 1) ) checked @endif/>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<input type="hidden" name="room_pay" value="{{ $employer->room_pay }}">
+		<input type="hidden" name="administration_pay" value="{{ $employer->administration_pay }}">
+		<input type="hidden" name="security_pay" value="{{ $employer->security_pay }}">
+		<input type="hidden" name="laundry_pay" value="{{ $employer->laundry_pay }}">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="submit" class="btn btn-primary">Save Changes</button>
+	</div>
+
+	<script>
+        $(document).ready(function() {
+            $("[id='room_pay']").change(function(){
+	            if($(this).is(':checked'))
+	                $("[name='room_pay']").val(1);
+	            else
+	                $("[name='room_pay']").val(0);
+	        });
+	        $("[id='administration_pay']").change(function(){
+	            if($(this).is(':checked'))
+	                $("[name='administration_pay']").val(1);
+	            else
+	                $("[name='administration_pay']").val(0);
+	        });
+	        $("[id='security_pay']").change(function(){
+	            if($(this).is(':checked'))
+	                $("[name='security_pay']").val(1);
+	            else
+	                $("[name='security_pay']").val(0);
+	        });
+	        $("[id='laundry_pay']").change(function(){
+	            if($(this).is(':checked'))
+	                $("[name='laundry_pay']").val(1);
+	            else
+	                $("[name='laundry_pay']").val(0);
+	        });
+        });
+    </script>
+
+    <script src="<?=url("");?>assets/js/simcify.min.js"></script>

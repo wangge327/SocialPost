@@ -1,0 +1,50 @@
+
+<div class="modal-body">
+    <p>Update Email Template.</p>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12">
+                <label>Template Name</label>
+                <input type="text" class="form-control" name="template_name" value="{{ $email_templates->name }}" placeholder="Template Name" data-parsley-required="true">
+                <input type="hidden" name="csrf-token" value="{{ csrf_token(); }}" />
+                <input type="hidden" name="templateid" value="{{ $email_templates->id }}" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12">
+                <label>Email Title</label>
+                <input type="text" class="form-control" id="email_title" placeholder="Email Title" data-parsley-required="true" name="email_title" value="{{ $email_templates->email_title }}">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12">
+                <label>Email Content</label>
+                <input type="hidden" name="email_content" id="email_content_edit_hidden">
+                <textarea class="form-control" id="email_content_edit" placeholder="Email Content" data-parsley-required="true">{{ $email_templates->email_content }}</textarea>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary update-submit-bt">Save Changes</button>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#email_content_edit").ckeditor();
+
+        $(".update-submit-bt").click(function()
+        {
+            var ckeditor_content = encodeURI(CKEDITOR.instances.email_content_edit.getData());
+            $("#email_content_edit_hidden").val(ckeditor_content);
+            $("#update-template-form").submit();
+        });
+    });
+</script>

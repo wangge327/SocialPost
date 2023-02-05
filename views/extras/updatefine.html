@@ -1,0 +1,28 @@
+                    
+                    <div class="modal-body">
+                        <p>Update Fine Fee.</p>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Fine Type</label>
+                                    <input type="text" class="form-control" name="type" value="{{ $fine_fees->type }}" placeholder="Fine Type" data-parsley-required="true">
+                                    <input type="hidden" name="csrf-token" value="{{ csrf_token(); }}" />
+                                    <input type="hidden" name="fineid" value="{{ $fine_fees->id }}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+	                        <div class="row">
+	                            <div class="col-md-12">
+	                                <label>Fine Amount</label>
+	                                <input type="number" class="form-control" id="fine_amount" placeholder="Fine Amount" data-parsley-required="true" name="amount" value="{{ $fine_fees->amount }}">
+	                            </div>
+	                        </div>
+	                    </div>
+                        
+                        
+	                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>

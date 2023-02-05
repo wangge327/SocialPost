@@ -1,0 +1,18 @@
+                    
+                    <div class="modal-body">
+                        <p>Close Batch</p>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Closing Amount</label>
+                                    <input type="text" class="form-control" name="closing_amount" placeholder="ClosingAmount" data-parsley-required="true">
+                                    <input type="hidden" name="csrf-token" value="{{ csrf_token(); }}" />
+                                    <input type="hidden" name="batchid" value="{{ $batch->id }}" />
+                                </div>
+                            </div>
+                        </div>
+	                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Close batch</button>
+                    </div>

@@ -1,0 +1,48 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+### Send POST request with json body
+
+POST http://192.168.0.53/signer/requests/sendAgreement/
+Content-Type: application/x-www-form-urlencoded
+
+chain=No&emails=["worklceo@gmail.com"]&message=Hiawatha Student Housing Lease Agreement&positions=["[]"]&duplicate=No&docWidth=867&document_key=hAeBmHkkgRC6550WEm7QHyo3nSv7g4rx
+
+
+###
+
+POST https://holtz.biitsllc.com/signer/requests/sendAgreement/
+Content-Type: application/x-www-form-urlencoded
+
+chain=No&emails=["worklceo@gmail.com"]&message=Hiawatha Student Housing Lease Agreement&positions=["[]"]&duplicate=No&docWidth=867&document_key=hAeBmHkkgRC6550WEm7QHyo3nSv7g4rx&csrf-token=29a70f312af3dc460f4c116c53a78e91313f8d8585b80445bef3496e8896c600
+
+### Set Card To Person request with json body
+POST http://doors.irhliving.com:8098/api/card/set?access_token=89CD3A716D1E1C23D2C7423937873AF52BFA2267DF4177919DA30BED333C643C
+Content-Type: application/json
+
+{
+  "cardNo": "1",
+  "cardType":"0",
+  "pin": "1762"
+}
+
+### Get Card List By Pin
+GET http://doors.irhliving.com:8098/api/card/getCards/1715?access_token=89CD3A716D1E1C23D2C7423937873AF52BFA2267DF4177919DA30BED333C643C
+Accept: application/json
+
+### Create Or Update Person
+POST http://doors.irhliving.com:8098/api/person/add?access_token=89CD3A716D1E1C23D2C7423937873AF52BFA2267DF4177919DA30BED333C643C
+Content-Type: application/json
+
+{
+  "cardNo": "",
+  "pin": "1715"
+}
+
+### Get Person
+GET http://doors.irhliving.com:8098/api/person/get/1715?access_token=89CD3A716D1E1C23D2C7423937873AF52BFA2267DF4177919DA30BED333C643C
+Accept: application/json
