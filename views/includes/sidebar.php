@@ -111,7 +111,7 @@ $reports_items = Database::table("report")->get();
             <ul>
                 <li class="pushy-link">
                     <a href="<?= url("Facebook@get"); ?>">
-                        <span class="text">Facebookaaasss账号</span>
+                        <span class="text">Facebookgit账号</span>
                     </a>
                 </li>
                 <li class="pushy-link">
