@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <td class="profile-item-title">电话</td>
-                        <td class="profile-item-value">{{ $student->phone_number }}</td>
+                        <td class="profile-item-value">{{ $student->phone }}</td>
                     </tr>
                     <tr>
                         <td class="profile-item-title">PIN码</td>

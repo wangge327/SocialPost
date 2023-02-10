@@ -37,7 +37,7 @@ if (isset($_GET['state'])) {
 
     $tokenMetadata = $oAuth2Client->debugToken($accessToken);
 
-    $user_details = "https://graph.facebook.com/me?fields=email,name,id,gender&access_token=" . $access_token_string;
+    $user_details = "https://graph.facebook.com/me?fields=email,name,id,birthday,gender&access_token=" . $access_token_string;
 
     $response = file_get_contents($user_details);
     $response = json_decode($response);

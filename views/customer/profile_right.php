@@ -29,10 +29,3 @@
         <label class="color-red">20</label>
     </div>
 </div>
-
-<div class="bg-white padding-10 mg-top-20">
-    <div class="row text-align-center margin-0">
-        Naver 帖子数 :&nbsp;
-        <label class="color-red">20</label>
-    </div>
-</div>

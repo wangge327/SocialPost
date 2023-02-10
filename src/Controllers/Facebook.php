@@ -17,9 +17,13 @@ class Facebook{
     }
 
     public function addPage(){
+        $user = Auth::user();
+        $fb_user = Database::table("facebook_account")->where("user_id", $user->id)->first();
+        $fb_pages = Database::table("facebook_account")->where("user_id", $user->id)->get();
         $data = array(
             "user" => Auth::user(),
-            "fine_fees" => Database::table("fine_fees")->get()
+            "fb_user" => $fb_user,
+            "fb_pages" => $fb_pages
         );
         return view('facebook/add_page', $data);
     }

@@ -14,10 +14,14 @@ $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $per
     <div class="content">
         <div class="page-title">
             <div class="pull-right page-actions lower">
+                <p>You have set Facebook account for posting.</p>
+                @if ( count($fb_user) > 0 )
+                @else
                 <a class="btn btn-primary" href="<?= htmlspecialchars($loginUrl)  ?> ">
                     <!--<i class="ion-plus-round"></i> 添加Facebook 帐户 -->
                     Login with Facebook
                 </a>
+                @endif
             </div>
             <h3>Facebook账号</h3>
             <p>所有添加的 Facebook 帐户列表</p>
@@ -28,7 +32,6 @@ $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $per
                     <table class="table display companies-list" id="data-table">
                         <thead>
                             <tr>
-                                <th class="text-center w-70"></th>
                                 <th>Facebook名称</th>
                                 <th>Facebook电子邮件 </th>
                                 <th>创建日期</th>
@@ -39,7 +42,6 @@ $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $per
                             @if ( count($fb_user) > 0 )
                             @foreach ( $fb_user as $index => $each_fb_user )
                             <tr>
-                                <td class="text-center">{{ $index + 1 }}</td>
                                 <td><strong>{{ $each_fb_user->fb_name }}</strong> </td>
                                 <td><strong>{{ $each_fb_user->fb_email }}</strong> </td>
                                 <td><strong>{{ $each_fb_user->created_at }}</strong> </td>
