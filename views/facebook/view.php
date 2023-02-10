@@ -14,8 +14,8 @@ $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $per
     <div class="content">
         <div class="page-title">
             <div class="pull-right page-actions lower">
-                <p>You have set Facebook account for posting.</p>
                 @if ( count($fb_user) > 0 )
+                <p>You have set Facebook account for posting.</p>
                 @else
                 <a class="btn btn-primary" href="<?= htmlspecialchars($loginUrl)  ?> ">
                     <!--<i class="ion-plus-round"></i> 添加Facebook 帐户 -->
