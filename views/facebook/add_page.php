@@ -52,7 +52,7 @@ if (isset($_GET['state'])) {
                         <tbody>
 
                         @if ( count($fb_pages) > 0 )
-                        @foreach ( $fb_pages as $index => $each_fb_user )
+
                         <tr>
                             <td><strong>Intrepid Travel</strong> </td>
                             <td>We are deeply saddened by the news of the earthquakes that shook southern Türkiye</td>
@@ -76,7 +76,7 @@ if (isset($_GET['state'])) {
                                 <a class="btn btn-primary send-to-server-click" data="page_id:123|csrf-token:{{ csrf_token() }}" url="" warning-title="Set Page" warning-message="This Page will be set for sending posts." warning-button="Set" >Set</a>
                             </td>
                         </tr>
-                        @endforeach
+
                         @else
                         <tr>
                             <td colspan="9" class="text-center">It's empty here</td>
