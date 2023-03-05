@@ -186,8 +186,21 @@ Router::group(['exceptionHandler' => Handler::class], function () {
         Router::post('/facebook/update/view', 'Facebook@updateview');
         Router::post('/facebook/delete', 'Facebook@delete');
         Router::post('/facebook/create', 'Facebook@create');
-        Router::post('/facebook/createByAjax', 'Facebook@createByAjax');
         Router::get('/facebook/addPage', 'Facebook@addPage');
+        Router::post('/facebook/addPageDB', 'Facebook@addPageDB');
+
+        // Youtube
+        Router::get('/youtube', 'Youtube@get');
+        Router::get('/youtube/getVideo', 'Youtube@getVideo');
+        Router::post('/youtube/searchVideoAjax', 'Youtube@searchVideoAjax');
+        Router::post('/youtube/chooseVideoDB', 'Youtube@chooseVideoDB');
+        Router::post('/youtube/unsetVideoDB', 'Youtube@unsetVideoDB');
+        Router::get('/youtube/getPost', 'Youtube@getPost');
+
+        // Posting
+        Router::get('/posting', 'Posting@get');
+        Router::post('/posting/publish_post', 'Posting@publishPost');
+        Router::get('/posting/history', 'Posting@history');
 
         // EmailTemplate
         Router::get('/email/template', 'EmailTemplate@get');

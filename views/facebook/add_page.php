@@ -1,10 +1,6 @@
 {{ view("includes/head", $data); }}
 <?php
 include("config.php"); // All settings in the $config-Object
-
-if (isset($_GET['state'])) {
-
-}
 ?>
 <body>
 <!-- header start -->
@@ -20,21 +16,19 @@ if (isset($_GET['state'])) {
     <div class="row margin-0">
         <div class="col-md-11 bg-white" style="padding:20px 10px">
             <form class="simcy-form" action="<?= url("Facebook@addFbAccount"); ?>" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="user_id" value="{{ $user->id }}">
-                <input type="hidden" name="csrf-token" value="{{ csrf_token() }}" >
-                <input type="hidden" name="fb_id" value="{{$fb_user->id}}">
+
 
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Facebook Name : </label>
-                            <span class="color-red">{{$fb_user->fb_name}}</span>
+                            <label>Facebook ID : </label>
+                            <span class="color-red">{{$fb_user->fb_id}}</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Facebook Email : </label>
-                            <span class="color-red">{{$fb_user->fb_email}}</span>
+                            <label>Facebook Name : </label>
+                            <span class="color-red">{{$fb_user->fb_name}}</span>
                         </div>
                     </div>
                 </div>
@@ -43,39 +37,39 @@ if (isset($_GET['state'])) {
                     <table class="table display page-list" id="data-table">
                         <thead>
                         <tr>
-                            <th class="text-center">Page Name</th>
-                            <th class="text-center">Page Intro</th>
+                            <th>No</th>
+                            <th>Page ID</th>
+                            <th>Page Name</th>
                             <th>Status</th>
                             <th class="text-center w-70">Action</th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        @if ( count($fb_pages) > 0 )
-
+                        @if ( count($fb_pages_api) > 0 )
+                        @foreach ( $fb_pages_api as $index => $each_fb_page )
                         <tr>
-                            <td><strong>Intrepid Travel</strong> </td>
-                            <td>We are deeply saddened by the news of the earthquakes that shook southern Türkiye</td>
+                            <td>{{$index + 1 }}</td>
+                            <td>{{$each_fb_page->id}}</td>
+                            <td><strong>{{$each_fb_page->name}}</strong></td>
                             <td>
+                                @if($each_fb_page->id == $fb_pages->page_id)
                                 <span class="label label-success">Set</span>
-                            </td>
-
-                            <td class="text-center">
-                                <a class="btn btn-success send-to-server-click" data="page_id:123|csrf-token:{{ csrf_token() }}" url="" warning-title="Are you sure?" warning-message="This Page will be unset." warning-button="Continue" loader="true" >Unset</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td><strong>Salone Monet</strong> </td>
-                            <td>Zoom in on my shoes!!!</td>
-                            <td>
+                                @else
                                 <span class="label label-warning">Unset</span>
+                                @endif
                             </td>
 
                             <td class="text-center">
-                                <a class="btn btn-primary send-to-server-click" data="page_id:123|csrf-token:{{ csrf_token() }}" url="" warning-title="Set Page" warning-message="This Page will be set for sending posts." warning-button="Set" >Set</a>
+                                @if($each_fb_page->id == $fb_pages->page_id)
+                                <a class="btn btn-success send-to-server-click" data="status:Unset|user_id:{{$user->id}}|fb_id:{{$fb_user->fb_id}}|page_id:{{$each_fb_page->id}}|page_name:{{$each_fb_page->name}}|page_access_token:{{$each_fb_page->page_token}}|csrf-token:{{ csrf_token() }}" url="<?=url("Facebook@AddPageDB");?>" warning-title="Are you sure?" warning-message="This Page will be Unset." warning-button="Continue" loader="true" >Unset</a>
+                                @else
+                                <a class="btn btn-primary send-to-server-click" data="status:Set|user_id:{{$user->id}}|fb_id:{{$fb_user->fb_id}}|page_id:{{$each_fb_page->id}}|page_name:{{$each_fb_page->name}}|page_access_token:{{$each_fb_page->page_token}}|csrf-token:{{ csrf_token() }}" url="<?=url("Facebook@AddPageDB");?>" warning-title="Are you sure?" warning-message="This Page will be Set." warning-button="Continue" loader="true" >Set</a>
+                                @endif
+
                             </td>
                         </tr>
+                        @endforeach
 
                         @else
                         <tr>

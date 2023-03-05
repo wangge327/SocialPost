@@ -140,6 +140,49 @@ $reports_items = Database::table("report")->get();
                 </li>
             </ul>
         </li>
+
+        <li class="pushy-submenu yt-submenu">
+            <a>
+                <label class="menu-icon"><i class="ion-social-youtube"></i> </label>
+                <span class="text">Youtube管理</span>
+            </a>
+            <ul>
+                <li class="pushy-link">
+                    <a href="">
+                        <span class="text">Youtube账号</span>
+                    </a>
+                </li>
+                <li class="pushy-link">
+                    <a href="<?= url("Youtube@getVideo"); ?>">
+                        <span class="text">Youtube视频设置</span>
+                    </a>
+                </li>
+                <li class="pushy-link">
+                    <a href="<?= url("Youtube@getPost"); ?>">
+                        <span class="text">Youtube发帖管理</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="pushy-submenu fb-submenu">
+            <a>
+                <label class="menu-icon"><i class="ion-ios-flower"></i> </label>
+                <span class="text">Post管理</span>
+            </a>
+            <ul>
+                <li class="pushy-link">
+                    <a href="<?= url("Posting@get"); ?>">
+                        <span class="text">Publish Post</span>
+                    </a>
+                </li>
+                <li class="pushy-link">
+                    <a href="<?= url("Posting@history"); ?>">
+                        <span class="text">Post History</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
         @endif
 
         <li><a href="<?= url("Settings@get"); ?>">

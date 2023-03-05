@@ -25,12 +25,23 @@
         "pecee/simple-router": "3.7.0.0",
         "twilio/sdk": "*",
         "africastalking/africastalking": "*",
-        "google/apiclient": "^2.0",
+        "google/apiclient": "^2.12.1",
         "cloudconvert/cloudconvert-php": "2.2.*",
         "oohology/dotenvwriter": "*",
         "paragonie/random_compat": "<9.99",
         "paypal/paypal-checkout-sdk": "1.0.1",
         "phpoffice/phpspreadsheet": "^1.16",
         "facebook/graph-sdk": "^5.1"
+    },
+    "scripts": {
+        "pre-autoload-dump": "Google\\Task\\Composer::cleanup"
+    },
+    "extra": {
+        "google/apiclient-services": [
+            "Drive",
+            "YouTube",
+            "YouTubeAnalytics",
+            "YouTubeReporting"
+        ]
     }
 }
