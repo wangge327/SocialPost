@@ -165,7 +165,7 @@ $reports_items = Database::table("report")->get();
             </ul>
         </li>
 
-        <li class="pushy-submenu fb-submenu">
+        <li class="pushy-submenu posting-submenu">
             <a>
                 <label class="menu-icon"><i class="ion-ios-flower"></i> </label>
                 <span class="text">Post管理</span>

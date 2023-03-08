@@ -1,11 +1,12 @@
 {{ view("includes/head", $data); }}
 <?php
 include("config.php"); // All settings in the $config-Object
-$permissions = ['public_profile'];
+$permissions = ['public_profile, email, pages_show_list, pages_read_engagement, pages_manage_posts'];
 
 //로그인 주소 생성. callback 주소 입력
 $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $permissions);
 ?>
+
 <body>
     <!-- header start -->
     {{ view("includes/header", $data); }}
@@ -53,8 +54,8 @@ $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $per
                                         <ul class="dropdown-menu" role="menu">
                                             <li role="presentation">
                                                 <!--
-                                                <a class="fetch-display-click" data="fineid:{{ $fine_fee->id }}|csrf-token:{{ csrf_token() }}" url="<?=url("Facebook@updateview");?>" holder=".update-holder" modal="#update" href="">Edit</a> -->
-                                                <a class="send-to-server-click"  data="tbid:{{ $each_fb_user->id }}|csrf-token:{{ csrf_token() }}" url="<?=url("Facebook@delete");?>" warning-title="你确定吗？" warning-message="此Facebook帐户将被删除。" warning-button="Continue" loader="true" href="">删除</a>
+                                                <a class="fetch-display-click" data="fineid:{{ $fine_fee->id }}|csrf-token:{{ csrf_token() }}" url="<?= url("Facebook@updateview"); ?>" holder=".update-holder" modal="#update" href="">Edit</a> -->
+                                                <a class="send-to-server-click" data="tbid:{{ $each_fb_user->id }}|csrf-token:{{ csrf_token() }}" url="<?= url("Facebook@delete"); ?>" warning-title="你确定吗？" warning-message="此Facebook帐户将被删除。" warning-button="Continue" loader="true" href="">删除</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -78,10 +79,10 @@ $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $per
     <!-- footer -->
     {{ view("includes/footer"); }}
 
-    <?php   $url_para = explode("/", $_SERVER['REQUEST_URI']); ?>
+    <?php $url_para = explode("/", $_SERVER['REQUEST_URI']); ?>
     <script>
         var controller_name = "<?php echo $url_para[1] ?>";
-        if(controller_name == "facebook"){
+        if (controller_name == "facebook") {
             $(".fb-submenu").addClass("pushy-submenu-open");
         }
 
