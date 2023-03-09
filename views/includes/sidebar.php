@@ -103,7 +103,7 @@ $reports_items = Database::table("report")->get();
 
         @if ( $user->role == "user" )
 
-        <li class="pushy-submenu fb-submenu">
+        <li class="pushy-submenu fb-submenu" style="cursor:pointer">
             <a>
                 <label class="menu-icon"><i class="ion-social-facebook"></i> </label>
                 <span class="text">Facebook管理</span>
@@ -122,7 +122,7 @@ $reports_items = Database::table("report")->get();
             </ul>
         </li>
 
-        <li class="pushy-submenu tw-submenu">
+        <li class="pushy-submenu tw-submenu" style="cursor:pointer">
             <a>
                 <label class="menu-icon"><i class="ion-social-twitter"></i> </label>
                 <span class="text">Twitter管理</span>
@@ -141,7 +141,7 @@ $reports_items = Database::table("report")->get();
             </ul>
         </li>
 
-        <li class="pushy-submenu yt-submenu">
+        <li class="pushy-submenu yt-submenu" style="cursor:pointer">
             <a>
                 <label class="menu-icon"><i class="ion-social-youtube"></i> </label>
                 <span class="text">Youtube管理</span>
@@ -165,7 +165,7 @@ $reports_items = Database::table("report")->get();
             </ul>
         </li>
 
-        <li class="pushy-submenu posting-submenu">
+        <li class="pushy-submenu posting-submenu" style="cursor:pointer">
             <a>
                 <label class="menu-icon"><i class="ion-ios-flower"></i> </label>
                 <span class="text">Post管理</span>
