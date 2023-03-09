@@ -37,7 +37,7 @@ class Posting
         else {
             foreach (input("social_type") as $each_social) {
                 $social_type[] = $each_social->value;
-                if ($each_social->value == "facebook") {
+                if ($each_social->value == "Facebook") {
                     $fb_user = Database::table("facebook_account")->where("user_id", $user->id)->first();
                     $fb_pages = Database::table("facebook_pages")->where("user_id", $user->id)->where("fb_id", $fb_user->fb_id)->first();
 

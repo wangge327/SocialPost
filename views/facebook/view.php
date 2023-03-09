@@ -1,13 +1,58 @@
 {{ view("includes/head", $data); }}
 <?php
+/*
 include("config.php"); // All settings in the $config-Object
 $permissions = ['public_profile, email, pages_show_list, pages_read_engagement, pages_manage_posts'];
+$permissions = ['public_profile, email, pages_show_list'];
 
 //로그인 주소 생성. callback 주소 입력
 $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $permissions);
+*/
 ?>
 
 <body>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '{{env("FACEBOOK_APP_ID")}}',
+                autoLogAppEvents: false,
+                xfbml: false,
+                version: 'v16.0'
+            });
+
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    console.log(response.authResponse);
+                }
+            });
+        };
+
+        function fb_login() {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    var access_token = response.authResponse.accessToken;
+                    console.log('Welcome!  Fetching your information.... ');
+                    FB.api('/me?fields=email,name,id,birthday,gender', function(response) {
+                        var out = [];
+
+                        for (var key in response) {
+                            if (response.hasOwnProperty(key)) {
+                                out.push(key + '=' + encodeURIComponent(response[key]));
+                            }
+                        }
+
+                        var redirect_url = '{{env("APP_URL")}}/facebook/callback?' + out.join('&') + "&access_token=" + access_token;
+                        location.href = redirect_url;
+                    });
+                } else {
+                    alert('User cancelled login or did not fully authorize.');
+                }
+            });
+        }
+    </script>
+
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
     <!-- header start -->
     {{ view("includes/header", $data); }}
     <!-- sidebar -->
@@ -19,7 +64,8 @@ $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $per
                 <label class="color-red">You have already set Facebook account for posting.</label><br>
                 <label class="color-red">If you set another account please remove current facebook account.</label>
                 @else
-                <a class="btn btn-primary" href="<?= htmlspecialchars($loginUrl)  ?> ">
+                <a class="btn btn-primary" onclick="fb_login()">
+                    <!--<a class="btn btn-primary" href="<?= htmlspecialchars($loginUrl)  ?> ">-->
                     <!--<i class="ion-plus-round"></i> 添加Facebook 帐户 -->
                     Login with Facebook
                 </a>
@@ -36,6 +82,7 @@ $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $per
                             <tr>
                                 <th>Facebook ID</th>
                                 <th>Facebook名称 </th>
+                                <th>Facebook邮件 </th>
                                 <th>创建日期</th>
                                 <th class="text-center w-70">Action</th>
                             </tr>
@@ -46,6 +93,7 @@ $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $per
                             <tr>
                                 <td><strong>{{ $each_fb_user->fb_id }}</strong> </td>
                                 <td><strong>{{ $each_fb_user->fb_name }}</strong> </td>
+                                <td><strong>{{ $each_fb_user->fb_email }}</strong> </td>
                                 <td><strong>{{ $each_fb_user->created_at }}</strong> </td>
 
                                 <td class="text-center">

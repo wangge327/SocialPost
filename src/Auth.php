@@ -1,10 +1,12 @@
 <?php
+
 namespace Simcify;
 
 use Simcify\Str;
 
-class Auth {
-    
+class Auth
+{
+
     /**
      * Authenicate a user
      * 
@@ -12,30 +14,33 @@ class Auth {
      * @param   boolean $remember
      * @return  void
      */
-    public static function authenticate($user, $remember = false) {
+    public static function authenticate($user, $remember = false)
+    {
         session(config('auth.session'), $user->id);
-        if( $remember && isset($user->{config('auth.remember')}) ) {
+        if ($remember && isset($user->{config('auth.remember')})) {
             cookie('cmVtZW1iZXI', $user->{config('auth.remember')}, 30);
         }
     }
 
-    
+
     /**
      * Check if the user is authenticated
      * 
      * @return  void
      */
-    public static function check() {
+    public static function check()
+    {
         return session()->has(config('auth.session'));
     }
-    
+
     /**
      * Log out the authenticated user
      * 
      * @return  void
      */
-    public static function deauthenticate() {
-        if(isset($_COOKIE['cmVtZW1iZXI'])) {
+    public static function deauthenticate()
+    {
+        if (isset($_COOKIE['cmVtZW1iZXI'])) {
             cookie('cmVtZW1iZXI', '', -7);
         }
         session()->flush();
@@ -47,7 +52,8 @@ class Auth {
      * @param   string  $string
      * @return  string
      */
-    public static function password($str) {
+    public static function password($str)
+    {
         return hash_hmac('sha256', $str, config('auth.secret'));
     }
 
@@ -56,11 +62,12 @@ class Auth {
      * 
      * @return  void
      */
-    public static function remember() {
-        if ( !static::check() && !is_null(cookie('cmVtZW1iZXI')) ) {
+    public static function remember()
+    {
+        if (!static::check() && !is_null(cookie('cmVtZW1iZXI'))) {
             $remember_token = cookie('cmVtZW1iZXI');
             $user = Database::table(config('auth.table'))->where(config('auth.remember'), $remember_token)->first();
-            if ( is_object($users) ) {
+            if (is_object($users)) {
                 static::authenticate($user);
             } else {
                 static::deauthenticate();
@@ -68,16 +75,17 @@ class Auth {
         }
     }
 
-    
+
     /**
      * Get the authenticated user
      * 
      * @return \Std
      */
-    public static function user() {
+    public static function user()
+    {
         return Database::table(config('auth.table'))->find(session(config('auth.session')) + 0);
     }
-    
+
     /**
      * Login a user
      * 
@@ -86,9 +94,10 @@ class Auth {
      * @param string $options
      * @return mixed
      */
-    public static function login($username, $password, $options = array()) {
+    public static function login($username, $password, $options = array())
+    {
         $givenPassword = self::password($password);
-        $user = Database::table(config('auth.table'))->where(config('auth.emailColumn'),$username)->first();
+        $user = Database::table(config('auth.table'))->where(config('auth.emailColumn'), $username)->first();
 
         if (!empty($user)) {
             if (isset($options["status"])) {
@@ -103,17 +112,17 @@ class Auth {
             }
 
             $passwordColumn = config('auth.passwordColumn');
-            if(hash_compare($user->$passwordColumn, self::password($password))){
+            if (hash_compare($user->$passwordColumn, self::password($password))) {
 
-//                $_SESSION['user']['id'] = 1;
-//                $_SESSION['user']['login'] = 'admin';
-//                $_SESSION['user']['email'] = $user->email;
-//                $_SESSION['user']['type'] = 'administrator';
-//                $_SESSION['user']['add_date'] = '1596734304';
+                //                $_SESSION['user']['id'] = 1;
+                //                $_SESSION['user']['login'] = 'admin';
+                //                $_SESSION['user']['email'] = $user->email;
+                //                $_SESSION['user']['type'] = 'administrator';
+                //                $_SESSION['user']['add_date'] = '1596734304';
 
                 if (isset($options["rememberme"]) && $options["rememberme"]) {
                     self::authenticate($user, true);
-                }else{
+                } else {
                     self::authenticate($user);
                 }
 
@@ -125,22 +134,21 @@ class Auth {
                         //"callback" => "redirect('".$options['redirect'].$companies->slug."', true);"
                         "callback" => "redirect('', true);"
                     );
-                }else{
+                } else {
                     $response = array(
                         "status" => "success",
                         "title" => "Login Successful",
                         "message" => "You have been logged in successfully"
                     );
                 }
-                
-            }else{
+            } else {
                 $response = array(
                     "status" => "error",
                     "title" => "Incorrect Credentials",
                     "message" => "Incorrect username or password"
                 );
             }
-        }else{
+        } else {
             $response = array(
                 "status" => "error",
                 "title" => "User not found",
@@ -150,7 +158,7 @@ class Auth {
 
         return $response;
     }
-    
+
     /**
      * Sign up new user
      * 
@@ -158,9 +166,10 @@ class Auth {
      * @param array $options
      * @return mixed
      */
-    public static function signup($data, $options = array()) {
+    public static function signup($data, $options = array())
+    {
         if (isset($options['uniqueEmail'])) {
-            $user = Database::table(config('auth.table'))->where(config('auth.emailColumn'),$options["uniqueEmail"])->first();
+            $user = Database::table(config('auth.table'))->where(config('auth.emailColumn'), $options["uniqueEmail"])->first();
             if (!empty($user)) {
                 return array(
                     "status" => "error",
@@ -175,8 +184,8 @@ class Auth {
 
 
 
-        if (isset($options["authenticate"]) AND $options["authenticate"]) {
-            $user = Database::table(config('auth.table'))->where("id",$newUserId)->first();
+        if (isset($options["authenticate"]) and $options["authenticate"]) {
+            $user = Database::table(config('auth.table'))->where("id", $newUserId)->first();
             self::authenticate($user);
         }
 
@@ -184,12 +193,12 @@ class Auth {
             $response = array(
                 "status" => "success",
                 "notify" => false,
-                "callback" => "redirect('".$options['redirect']."', true);"
+                "callback" => "redirect('" . $options['redirect'] . "', true);"
             );
-        }else{
+        } else {
             $response = array(
                 "status" => "success",
-                "user_id"=>$newUserId,
+                "user_id" => $newUserId,
                 "title" => "Sign up Successful",
                 "message" => "Your account was created successfully"
             );
@@ -197,7 +206,7 @@ class Auth {
 
         return $response;
     }
-    
+
     /**
      * forgot password
      * 
@@ -205,18 +214,19 @@ class Auth {
      * @param string $resetlink
      * @return mixed
      */
-    public static function forgot($email, $resetlink) {
-        $user = Database::table(config('auth.table'))->where(config('auth.emailColumn'),$email)->first();
+    public static function forgot($email, $resetlink)
+    {
+        $user = Database::table(config('auth.table'))->where(config('auth.emailColumn'), $email)->first();
         if (!empty($user)) {
 
             $token = Str::random(32);
             $data = array(config('auth.passwordTokenColumn') => $token);
-            $update = Database::table(config('auth.table'))->where(config('auth.emailColumn') ,$email)->update($data);
+            $update = Database::table(config('auth.table'))->where(config('auth.emailColumn'), $email)->update($data);
             $resetLink = str_replace("[token]", $token, $resetlink);
 
             $send = Mail::send(
                 $email,
-                env("APP_NAME")." Password Reset.",
+                env("APP_NAME") . " Password Reset.",
                 array(
                     "title" => "Password Reset",
                     "subtitle" => "Click the the button below to reset your password.",
@@ -228,20 +238,20 @@ class Auth {
             );
 
             if ($send) {
-                    $response = array(
-                        "status" => "success",
-                        "title" => "Email sent!",
-                        "message" => "Email with reset instructions successfully sent!",
-                        "callback" => "redirect('".url("Auth@get")."')"
-                    );
-            }else{
-                    $response = array(
-                        "status" => "error",
-                        "title" => "Failed to reset",
-                        "message" => $send->ErrorInfo
-                    );
+                $response = array(
+                    "status" => "success",
+                    "title" => "Email sent!",
+                    "message" => "Email with reset instructions successfully sent!",
+                    "callback" => "redirect('" . url("Auth@get") . "')"
+                );
+            } else {
+                $response = array(
+                    "status" => "error",
+                    "title" => "Failed to reset",
+                    "message" => $send->ErrorInfo
+                );
             }
-        }else{
+        } else {
             $response = array(
                 "status" => "error",
                 "title" => "Account not found",
@@ -250,9 +260,8 @@ class Auth {
         }
 
         return $response;
-
     }
-    
+
     /**
      * reset password
      * 
@@ -260,27 +269,28 @@ class Auth {
      * @param string $password
      * @return mixed
      */
-    public static function reset($token, $password) {
-        $user = Database::table(config('auth.table'))->where(config('auth.passwordTokenColumn'),$token)->first();
+    public static function reset($token, $password)
+    {
+        $user = Database::table(config('auth.table'))->where(config('auth.passwordTokenColumn'), $token)->first();
         if (!empty($user)) {
-            $data = array(config('auth.passwordTokenColumn') => "" , config('auth.passwordColumn') => self::password($password));
-            $update = Database::table(config('auth.table'))->where("id",$user->id)->update($data);
+            $data = array(config('auth.passwordTokenColumn') => "", config('auth.passwordColumn') => self::password($password));
+            $update = Database::table(config('auth.table'))->where("id", $user->id)->update($data);
 
             if ($update) {
-                    $response = array(
-                        "status" => "success",
-                        "title" => "Password reset!",
-                        "message" => "Password successfully reset!",
-                        "callback" => "redirect('".url("Auth@get")."', true);"
-                    );
-            }else{
-                    $response = array(
-                        "status" => "error",
-                        "title" => "Failed to reset",
-                        "message" => "Failed to reset password, please try again"
-                    );
+                $response = array(
+                    "status" => "success",
+                    "title" => "Password reset!",
+                    "message" => "Password successfully reset!",
+                    "callback" => "redirect('" . url("Auth@get") . "', true);"
+                );
+            } else {
+                $response = array(
+                    "status" => "error",
+                    "title" => "Failed to reset",
+                    "message" => "Failed to reset password, please try again"
+                );
             }
-        }else{
+        } else {
             $response = array(
                 "status" => "error",
                 "title" => "Token Mismatch",
@@ -289,6 +299,5 @@ class Auth {
         }
 
         return $response;
-
     }
 }

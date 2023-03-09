@@ -1,4 +1,5 @@
 <?php
+
 namespace Simcify\Controllers;
 
 use Simcify\Auth as Authenticate;
@@ -6,26 +7,29 @@ use Simcify\Database;
 use Simcify\Models\StudentModel;
 use Simcify\Mail;
 
-class Auth{
+class Auth
+{
 
     /**
      * Get Auth view
      * 
      * @return \Pecee\Http\Response
      */
-    public function get() {
+    public function get()
+    {
         $enabledguest = $guest = $signingLink = false;
+
         if (isset($_COOKIE['guest'])) {
             $guest = true;
             $guestData = unserialize($_COOKIE['guest']);
-            $signingLink = url("Guest@open").$guestData[0]."?signingKey=".$guestData[1];
+            $signingLink = url("Guest@open") . $guestData[0] . "?signingKey=" . $guestData[1];
             $enabledguest = true;
-            setcookie("guest", null, time()-30000, '/');
+            setcookie("guest", null, time() - 30000, '/');
         }
         if (!isset($_GET['secure'])) {
-            redirect(url("Auth@get")."?secure=true");
+            redirect(url("Auth@get") . "?secure=true");
         }
-        return view('login', compact("guest","signingLink"));
+        return view('login', compact("guest", "signingLink"));
     }
 
     /**
@@ -33,22 +37,23 @@ class Auth{
      * 
      * @return Json
      */
-    public function signin() {
+    public function signin()
+    {
         $signIn = Authenticate::login(
-		    input('email'), 
-		    input('password'), 
-		    array(
-		        "rememberme" => true,
-		        "redirect" => url(""),
-		        "status" => "Suspended"
-		    )
-		);
+            input('email'),
+            input('password'),
+            array(
+                "rememberme" => true,
+                "redirect" => url(""),
+                "status" => "Suspended"
+            )
+        );
 
         //Sync the MySQL and PHP datetimes
         Database::table('users')->synchronizeTimezone();
 
         header('Content-type: application/json');
-		exit(json_encode($signIn));
+        exit(json_encode($signIn));
     }
 
     /**
@@ -56,13 +61,14 @@ class Auth{
      * 
      * @return Json
      */
-    public function forgot() {
+    public function forgot()
+    {
         $forgot = Authenticate::forgot(
-		    input('email'), 
-		    env('APP_URL')."/reset/[token]"
-		);
+            input('email'),
+            env('APP_URL') . "/reset/[token]"
+        );
         header('Content-type: application/json');
-		exit(json_encode($forgot));
+        exit(json_encode($forgot));
     }
 
     /**
@@ -70,7 +76,8 @@ class Auth{
      * 
      * @return \Pecee\Http\Response
      */
-    public function getreset($token) {
+    public function getreset($token)
+    {
         return view('reset', array("token" => $token));
     }
 
@@ -79,45 +86,51 @@ class Auth{
      *
      * @return Json
      */
-    public function reset() {
-        if (input('user_id')){   //create payment
-            $user_id=input('user_id');
-            StudentModel::Update($user_id,
-                array("password" => Authenticate::password(input("password")),
-                    'lease_end'=>input('lease_end')
+    public function reset()
+    {
+        if (input('user_id')) {   //create payment
+            $user_id = input('user_id');
+            StudentModel::Update(
+                $user_id,
+                array(
+                    "password" => Authenticate::password(input("password")),
+                    'lease_end' => input('lease_end')
                 )
             );
             session(config('auth.session'), $user_id);
-            $roommate="";
+            $roommate = "";
             foreach (input('roommate') as $item) {
-                if ($item!=""){
-                    Database::table("roommates")->insert(array("user_id"=>$user_id,"name"=>$item));
-                    $roommate.="<br>".$item;
+                if ($item != "") {
+                    Database::table("roommates")->insert(array("user_id" => $user_id, "name" => $item));
+                    $roommate .= "<br>" . $item;
                 }
             }
-            if ($roommate!=""){
+            if ($roommate != "") {
                 $user = Database::table("users")->find($user_id);
-                $message="from Student(".$user->email.")  <strong>".$user->fname." ".$user->lname."</strong><br>".$roommate;
-                Mail::send("wd@irhliving.com", "Roommate was requested",
+                $message = "from Student(" . $user->email . ")  <strong>" . $user->fname . " " . $user->lname . "</strong><br>" . $roommate;
+                Mail::send(
+                    "wd@irhliving.com",
+                    "Roommate was requested",
                     array(
-                        "message" =>$message
+                        "message" => $message
                     ),
-                    "basic",null,[],
+                    "basic",
+                    null,
+                    [],
                     $user->email,
-                    $user->fname." ".$user->lname
+                    $user->fname . " " . $user->lname
                 );
             }
             $response = array(
                 "status" => "success",
                 "notify" => false,
-//                "callback" => "redirect('".url("Payment@payment")."', true);"
-                "callback" => "redirect('".url("Customer@imageUpload")."web_cam_id_passport.php', true);"
+                //                "callback" => "redirect('".url("Payment@payment")."', true);"
+                "callback" => "redirect('" . url("Customer@imageUpload") . "web_cam_id_passport.php', true);"
             );
             header('Content-type: application/json');
             exit(json_encode($response));
-//            exit;
-        }
-        else{   //reset password
+            //            exit;
+        } else {   //reset password
             $reset = Authenticate::reset(
                 input('token'),
                 input('password')
@@ -133,37 +146,39 @@ class Auth{
      * 
      * @return Json
      */
-    public function signup() {
+    public function signup()
+    {
 
         $companyId = 0;
         $role = "user";
 
 
         $signup = Authenticate::signup(
-		    array(
-		        "fname" => input('fname'),
-		        "lname" => input('lname'),
-		        "email" => input('email'),
-		        "role" => $role,
-		        "company" => $companyId,
-		        "password" => Authenticate::password(input('password'))
-		    ), 
-		    array(
-		        "authenticate" => true,
-		        "redirect" => url(""),
-		        "uniqueEmail" => input('email')
-		    )
-		);
+            array(
+                "fname" => input('fname'),
+                "lname" => input('lname'),
+                "email" => input('email'),
+                "role" => $role,
+                "company" => $companyId,
+                "password" => Authenticate::password(input('password'))
+            ),
+            array(
+                "authenticate" => true,
+                "redirect" => url(""),
+                "uniqueEmail" => input('email')
+            )
+        );
 
         header('Content-type: application/json');
-		exit(json_encode($signup));
+        exit(json_encode($signup));
     }
 
     /**
      * Sign Out a logged in user
      *
      */
-    public function signout() {
+    public function signout()
+    {
         Authenticate::deauthenticate();
         redirect(url("Auth@get"));
     }

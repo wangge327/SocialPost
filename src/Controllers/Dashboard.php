@@ -24,7 +24,6 @@ class Dashboard
             // invoice
             //$invoice = Database::table("invoices")->where("student_id" , $user->id)->get();
 
-
             $user->phone_number = StudentModel::getPhoneNumber($user);
             $student = $user;
             $user->page_title = "Student Profile";

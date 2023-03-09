@@ -1,5 +1,4 @@
 <?php
-    return array(
-        'name'  => 'simcify'
-    );
-    
+return array(
+    'name'  => 'simcify'
+);
