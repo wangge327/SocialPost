@@ -47,6 +47,8 @@ $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $per
                 } else {
                     alert('User cancelled login or did not fully authorize.');
                 }
+            }, {
+                scope: 'public_profile, email, pages_show_list, pages_read_engagement, pages_manage_posts'
             });
         }
     </script>
