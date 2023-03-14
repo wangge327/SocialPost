@@ -36,4 +36,14 @@ class Frontend
         );
         return view('frontend/contact', $data);
     }
+
+    public function policy()
+    {
+        $user = Auth::user();
+
+        $data = array(
+            "user" => $user
+        );
+        return view('frontend/policy', $data);
+    }
 }

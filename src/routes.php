@@ -295,10 +295,11 @@ Router::group(['exceptionHandler' => Handler::class], function () {
     Router::get('/', 'Frontend@home');
     Router::get('/about', 'Frontend@about');
     Router::get('/contact', 'Frontend@contact');
+    Router::get('/policy', 'Frontend@policy');
 
     Router::get('/mailopen', 'Guest@mailopen');
     Router::get('/view/{signingKey}', 'Guest@open');
-    Router::get('/policy', 'Guest@policy');
+
     Router::post('/guest/decline', 'Guest@decline');
     Router::post('/guest/sign', 'Guest@sign');
 

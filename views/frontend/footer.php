@@ -29,6 +29,7 @@
                             <li><a href="<?= url("Frontend@home"); ?>">Home</a></li>
                             <li><a href="<?= url("Frontend@about"); ?>">About </a></li>
                             <li><a href="<?= url("Frontend@contact"); ?>">Contact Us</a></li>
+                            <li><a href="<?= url("Frontend@policy"); ?>">Privacy Policy</a></li>
                         </ul>
                     </div>
                 </div>

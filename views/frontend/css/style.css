@@ -303,7 +303,6 @@ button {
   font-size: 17px;
   line-height: 20px;
   font-weight: 400;
-  text-transform: uppercase;
 }
 
 .navigation.navbar-dark .navbar-nav .nav-link:focus,
@@ -492,6 +491,19 @@ ul.email li a i span {
   padding: 50px 30px;
   box-shadow: 0 0 59px rgba(30, 30, 29, 0.07);
   margin-top: 30px;
+}
+
+.signer-document {
+  padding-bottom: 60px;
+}
+.signer-document h3 {
+  font-size: 20px;
+  font-weight: bold;
+}
+.signer-document p {
+  padding-top: 20px !important;
+  padding-bottom: 0 !important;
+  line-height: 25px;
 }
 
 .domain-price_main {

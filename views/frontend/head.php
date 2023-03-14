@@ -57,6 +57,9 @@ $frontend_url = url("views/frontend");
                                 <li class="nav-item nav-id-contact">
                                     <a class="nav-link" href="<?= url("Frontend@contact"); ?>">Contact Us</a>
                                 </li>
+                                <li class="nav-item nav-id-contact">
+                                    <a class="nav-link" href="<?= url("Frontend@policy"); ?>">Privacy Policy</a>
+                                </li>
                             </ul>
                         </div>
                     </nav>
