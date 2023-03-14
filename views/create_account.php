@@ -1,9 +1,10 @@
 <?php include "includes/head.php" ?>
+
 <body class="login">
     <div class="login-card">
         <div class="reset-password">
             <h4>Create your account.</h4>
-            <form class="text-left simcy-form" action="<?=url("Auth@reset");?>" method="POST" data-parsley-validate="" loader="true" >
+            <form class="text-left simcy-form" action="<?= url("Auth@reset"); ?>" method="POST" data-parsley-validate="" loader="true">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
@@ -69,24 +70,24 @@
             </form>
         </div>
         <div class="copyright">
-            <p class="text-center"><?=date("Y")?> &copy; <?=env("APP_NAME")?> | All Rights Reserved.</p>
+            <p class="text-center"><?= date("Y") ?> &copy; <?= env("APP_NAME") ?> | All Rights Reserved.</p>
         </div>
     </div>
 
     <style>
         input[name='roommate[]'] {
-            margin-top:5px
+            margin-top: 5px
         }
     </style>
 
     <!-- scripts -->
-    <script src="<?=url("");?>assets/js/jquery-3.2.1.min.js"></script>
-    <script src="<?=url("");?>assets/libs/bootstrap/js/bootstrap.min.js"></script>
-    <script src="<?=url("");?>assets/js//jquery.slimscroll.min.js"></script>
-    <script src="<?=url("");?>assets/js/simcify.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/jquery-3.2.1.min.js"></script>
+    <script src="<?= url("/"); ?>assets/libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js//jquery.slimscroll.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/simcify.min.js"></script>
 
     <!-- custom scripts -->
-    <script src="<?=url("");?>assets/js/app.js"></script>
+    <script src="<?= url("/"); ?>assets/js/app.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
@@ -97,7 +98,6 @@
                 format: 'yyyy-mm-dd'
             });
         });
-
     </script>
 </body>
 

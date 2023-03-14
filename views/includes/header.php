@@ -5,11 +5,11 @@
     </div>
     <!-- logo -->
     <div class="logo">
-        <a href="<?= url(""); ?>">
+        <a href="<?= url("/"); ?>">
             <!--                --><?php //echo SITE_TITLE; 
                                     ?>
             <!--<span class="hidden-xs"> | HIAWATHA Admin</span>-->
-            <img src="<?= url(""); ?>uploads/app/{{ env('APP_LOGO'); }}" class="img-responsive">
+            <img src="<?= url("/"); ?>uploads/app/{{ env('APP_LOGO'); }}" class="img-responsive">
         </a>
     </div>
 
@@ -29,9 +29,9 @@
                     <span class="profile-name"> <span class="hidden-xs"> {{ $user->fname }} </span> <i class="ion-ios-arrow-down"></i> </span>
                     <span class="avatar">
                         @if( !empty($user->avatar) )
-                        <img src="<?= url(""); ?>uploads/avatar/{{ $user->avatar }}" class="user-avatar img-circle">
+                        <img src="<?= url("/"); ?>uploads/avatar/{{ $user->avatar }}" class="user-avatar img-circle">
                         @else
-                        <img src="<?= url(""); ?>assets/images/avatar.png" class="user-avatar">
+                        <img src="<?= url("/"); ?>assets/images/avatar.png" class="user-avatar">
                         @endif
                     </span>
                 </span>

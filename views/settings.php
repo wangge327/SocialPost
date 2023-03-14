@@ -39,7 +39,7 @@
                                     <div class="col-md-12">
                                         <label>头像</label>
                                         @if( !empty($user->avatar) )
-                                        <input type="file" name="avatar" class="croppie" default="<?= url(""); ?>uploads/avatar/{{ $user->avatar }}" crop-width="200" crop-height="200" accept="image/*">
+                                        <input type="file" name="avatar" class="croppie" default="<?= url("/"); ?>uploads/avatar/{{ $user->avatar }}" crop-width="200" crop-height="200" accept="image/*">
                                         @else
                                         <input type="file" name="avatar" class="croppie" crop-width="200" crop-height="200" accept="image/*">
                                         @endif

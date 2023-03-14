@@ -15,10 +15,12 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-<!--                <ul class="nav nav-tabs">-->
-<!--                    <li><a href="--><?//=url("");?><!--requests/" @if (!isset($_GET['view']))  class="active" @endif>Sent</a></li>-->
-<!--                    <li><a href="--><?//=url("");?><!--requests/?view=recd"@if (isset($_GET['view']) && $_GET['view'] == "recd")  class="active" @endif>Received</a></li>-->
-<!--                </ul>-->
+                <!--                <ul class="nav nav-tabs">-->
+                <!--                    <li><a href="--><? //=url("/");
+                                                        ?><!--requests/" @if (!isset($_GET['view']))  class="active" @endif>Sent</a></li>-->
+                <!--                    <li><a href="--><? //=url("/");
+                                                        ?><!--requests/?view=recd"@if (isset($_GET['view']) && $_GET['view'] == "recd")  class="active" @endif>Received</a></li>-->
+                <!--                </ul>-->
                 <div class="light-card table-responsive p-b-3em">
                     <table id="signer-datatable" class="table display companies-list">
                         <thead>
@@ -39,9 +41,9 @@
                                 <td class="text-center">{{ $index + 1 }}</td>
                                 <td class="text-center">
                                     @if ( is_object($request['receiver']) && !empty($request['receiver']->avatar) )
-                                    <img src="<?=url("")?>uploads/avatar/{{ $request['receiver']->avatar }}" class="img-responsive img-circle table-avatar">
+                                    <img src="<?= url("/") ?>uploads/avatar/{{ $request['receiver']->avatar }}" class="img-responsive img-circle table-avatar">
                                     @else
-                                    <img src="<?=url("")?>assets/images/avatar.png" class="img-responsive table-avatar">
+                                    <img src="<?= url("/") ?>assets/images/avatar.png" class="img-responsive table-avatar">
                                     @endif
                                 </td>
                                 <td>
@@ -50,15 +52,16 @@
                                     @else
                                     <strong>{{ $request['data']->email }}</strong>
                                     @endif
-                                    <br>Sent by: {{ $request['sender']->fname }} {{ $request['sender']->lname }}</td>
-                                <td>
-                                @if (!isset($_GET['view']))
-                                <a href="{{ url('Document@open').$request['file']->document_key }}">{{ $request['file']->name }}</a>
-                                @else
-                                <a href="{{ url('Document@open').$request['file']->document_key."?signingKey=".$request['data']->signing_key }}">{{ $request['file']->name }}</a>
-                                @endif
+                                    <br>Sent by: {{ $request['sender']->fname }} {{ $request['sender']->lname }}
                                 </td>
-                                <td><strong>Requested: </strong>{{ setToUserTimezone($request['data']->send_time,$user->timezone) }}                                   @if ( $request['data']->status != "Pending" )
+                                <td>
+                                    @if (!isset($_GET['view']))
+                                    <a href="{{ url('Document@open').$request['file']->document_key }}">{{ $request['file']->name }}</a>
+                                    @else
+                                    <a href="{{ url('Document@open').$request['file']->document_key."?signingKey=".$request['data']->signing_key }}">{{ $request['file']->name }}</a>
+                                    @endif
+                                </td>
+                                <td><strong>Requested: </strong>{{ setToUserTimezone($request['data']->send_time,$user->timezone) }} @if ( $request['data']->status != "Pending" )
                                     <br><strong>Signed: </strong>{{ setToUserTimezone($request['data']->update_time,$user->timezone) }}
                                     @endif
                                 </td>
@@ -80,17 +83,17 @@
                                         <ul class="dropdown-menu" role="menu">
                                             <li role="presentation">
                                                 @if (!isset($_GET['view']))
-                                                    @if ( $request['data']->status == "Pending" )
-                                                    <a class="request-remind" data-id="{{ $request['data']->id }}" href="">Remind</a>
-                                                    <a class="send-to-server-click"  data="requestid:{{ $request['data']->id }}|csrf-token:{{ csrf_token() }}" url="<?=url("Request@cancel");?>" warning-title="Are you sure?" warning-message="This request will be canceled." warning-button="Cancel Now" loader="true" href="">Cancel</a>
-                                                    @endif
-                                                    <a class="send-to-server-click"  data="requestid:{{ $request['data']->id }}|csrf-token:{{ csrf_token() }}" url="<?=url("Request@delete");?>" warning-title="Are you sure?" warning-message="This request will be deleted parmanently." warning-button="Delete Now" loader="true" href="">Delete</a>
+                                                @if ( $request['data']->status == "Pending" )
+                                                <a class="request-remind" data-id="{{ $request['data']->id }}" href="">Remind</a>
+                                                <a class="send-to-server-click" data="requestid:{{ $request['data']->id }}|csrf-token:{{ csrf_token() }}" url="<?= url("Request@cancel"); ?>" warning-title="Are you sure?" warning-message="This request will be canceled." warning-button="Cancel Now" loader="true" href="">Cancel</a>
+                                                @endif
+                                                <a class="send-to-server-click" data="requestid:{{ $request['data']->id }}|csrf-token:{{ csrf_token() }}" url="<?= url("Request@delete"); ?>" warning-title="Are you sure?" warning-message="This request will be deleted parmanently." warning-button="Delete Now" loader="true" href="">Delete</a>
                                                 @else
-                                                    @if ( $request['data']->status == "Pending" )
-                                                    <a href="{{ url('Document@open').$request['file']->document_key."?signingKey=".$request['data']->signing_key }}">Sign Now</a>
-                                                    @else
-                                                    <a href="{{ url('Document@open').$request['file']->document_key."?signingKey=".$request['data']->signing_key }}">View</a>
-                                                    @endif 
+                                                @if ( $request['data']->status == "Pending" )
+                                                <a href="{{ url('Document@open').$request['file']->document_key."?signingKey=".$request['data']->signing_key }}">Sign Now</a>
+                                                @else
+                                                <a href="{{ url('Document@open').$request['file']->document_key."?signingKey=".$request['data']->signing_key }}">View</a>
+                                                @endif
                                                 @endif
 
                                             </li>
@@ -120,7 +123,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Send reminder</h4>
                 </div>
-                <form class="simcy-form"action="<?=url("Request@remind");?>" data-parsley-validate="" loader="true" method="POST">
+                <form class="simcy-form" action="<?= url("Request@remind"); ?>" data-parsley-validate="" loader="true" method="POST">
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="row">
@@ -151,10 +154,10 @@ Thank you
 
     <!-- footer -->
     {{ view("includes/footer"); }}
-    <script src="<?=url("");?>assets/js/simcify.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/simcify.min.js"></script>
 
     <!-- custom scripts -->
-    <script src="<?=url("");?>assets/js/app.js"></script>
+    <script src="<?= url("/"); ?>assets/js/app.js"></script>
     @if ( count($requests) > 0 )
     <script>
         $(document).ready(function() {
@@ -169,7 +172,7 @@ Thank you
         });
     </script>
     @endif
-    <script src="<?=url("");?>assets/js/custom.js"></script>
+    <script src="<?= url("/"); ?>assets/js/custom.js"></script>
 </body>
 
 </html>

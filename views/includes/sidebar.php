@@ -4,11 +4,11 @@ use Simcify\Database;
 
 $reports_items = Database::table("report")->get();
 ?>
-<link href="<?= url(""); ?>assets/css/pushy.css" rel="stylesheet">
+<link href="<?= url("/"); ?>assets/css/pushy.css" rel="stylesheet">
 <div class="left-bar">
     <div class="slimscroll-menu">
         <li>
-            <a href="<?= url(""); ?>">
+            <a href="<?= url("Dashboard@get"); ?>">
                 <label class="menu-icon"><i class="ion-ios-speedometer"></i> </label><span class="text">仪表板</span>
             </a>
         </li>

@@ -1,4 +1,5 @@
 {{ view("includes/head", $data); }}
+
 <body>
     <!-- header start -->
     {{ view("includes/header", $data); }}
@@ -24,7 +25,7 @@
                                 <th class="text-center">Name</th>
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Card Number</th>
-<!--                                <th class="text-center w-70">Action</th>-->
+                                <!--                                <th class="text-center w-70">Action</th>-->
                             </tr>
                         </thead>
                         <tbody>
@@ -43,21 +44,22 @@
                                         {{ $item->name }}
                                     </a>
                                     @else
-                                        {{ $item->name }}
+                                    {{ $item->name }}
                                     @endif
                                 </th>
                                 <td class="text-center">{{ $item->email}}</td>
                                 <td class="text-center">{{ $item->card_number}}</td>
-<!--                                <td class="text-center">-->
-<!--                                    <div class="dropdown">-->
-<!--                                        <span class="company-action dropdown-toggle" data-toggle="dropdown"><i class="ion-ios-more"></i></span>-->
-<!--                                        <ul class="dropdown-menu" role="menu">-->
-<!--                                            <li role="presentation">-->
-<!--                                                <a class="send-to-server-click"  data="invoice_id:{{ $item->id }}|table:users|csrf-token:{{ csrf_token() }}" url="--><?//=url("CC@refundInvoice");?><!--" warning-title="Are you sure?" warning-message="This payment will be refunded." warning-button="Continue" loader="true" href="">Refund</a>-->
-<!--                                            </li>-->
-<!--                                        </ul>-->
-<!--                                    </div>-->
-<!--                                </td>-->
+                                <!--                                <td class="text-center">-->
+                                <!--                                    <div class="dropdown">-->
+                                <!--                                        <span class="company-action dropdown-toggle" data-toggle="dropdown"><i class="ion-ios-more"></i></span>-->
+                                <!--                                        <ul class="dropdown-menu" role="menu">-->
+                                <!--                                            <li role="presentation">-->
+                                <!--                                                <a class="send-to-server-click"  data="invoice_id:{{ $item->id }}|table:users|csrf-token:{{ csrf_token() }}" url="--><? //=url("CC@refundInvoice");
+                                                                                                                                                                                                            ?><!--" warning-title="Are you sure?" warning-message="This payment will be refunded." warning-button="Continue" loader="true" href="">Refund</a>-->
+                                <!--                                            </li>-->
+                                <!--                                        </ul>-->
+                                <!--                                    </div>-->
+                                <!--                                </td>-->
                             </tr>
                             @endforeach
                             @else
@@ -92,12 +94,12 @@
                 format: 'yyyy-mm-dd'
             });
         });
-        let baseUrl = '<?=url("");?>';
-        let csrf='<?=csrf_token();?>';
+        let baseUrl = '<?= url("/"); ?>';
+        let csrf = '<?= csrf_token(); ?>';
     </script>
     @endif
 
-    <script src="<?= url(""); ?>assets/js/room.js"></script>
+    <script src="<?= url("/"); ?>assets/js/room.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </body>

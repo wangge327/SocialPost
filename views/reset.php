@@ -1,10 +1,11 @@
 <?php include "includes/head.php" ?>
+
 <body class="login">
     <div class="login-card">
-        <img src="<?=url("");?>uploads/app/{{ env('APP_ICON'); }}" class="img-responsive">
+        <img src="<?= url("/"); ?>uploads/app/{{ env('APP_ICON'); }}" class="img-responsive">
         <div class="reset-password">
             <h4 class="mb-30">Enter your new password.</h4>
-            <form class="text-left simcy-form" action="<?=url("Auth@reset");?>" method="POST" data-parsley-validate="" loader="true">
+            <form class="text-left simcy-form" action="<?= url("Auth@reset"); ?>" method="POST" data-parsley-validate="" loader="true">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
@@ -36,18 +37,18 @@
             </form>
         </div>
         <div class="copyright">
-            <p class="text-center"><?=date("Y")?> &copy; <?=env("APP_NAME")?> | All Rights Reserved.</p>
+            <p class="text-center"><?= date("Y") ?> &copy; <?= env("APP_NAME") ?> | All Rights Reserved.</p>
         </div>
     </div>
 
     <!-- scripts -->
-    <script src="<?=url("");?>assets/js/jquery-3.2.1.min.js"></script>
-    <script src="<?=url("");?>assets/libs/bootstrap/js/bootstrap.min.js"></script>
-    <script src="<?=url("");?>assets/js//jquery.slimscroll.min.js"></script>
-    <script src="<?=url("");?>assets/js/simcify.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/jquery-3.2.1.min.js"></script>
+    <script src="<?= url("/"); ?>assets/libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js//jquery.slimscroll.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/simcify.min.js"></script>
 
     <!-- custom scripts -->
-    <script src="<?=url("");?>assets/js/app.js"></script>
+    <script src="<?= url("/"); ?>assets/js/app.js"></script>
 </body>
 
 </html>

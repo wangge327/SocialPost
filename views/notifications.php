@@ -23,7 +23,7 @@
                         <span><i class="ion-ios-bell-outline"></i></span>
                     </div>
                     <span class="label label-warning">Important!</span>
-                <p>You have been invited you to sign <a href="{{ url('Document@open').$request->document.'?signingKey='.$request->signing_key }}"><span class="text-primary">{{$request->file}}</span></a>.</p>
+                    <p>You have been invited you to sign <a href="{{ url('Document@open').$request->document.'?signingKey='.$request->signing_key }}"><span class="text-primary">{{$request->file}}</span></a>.</p>
                 </div>
                 @endforeach
                 @endif
@@ -64,12 +64,12 @@
     <!-- footer -->
     {{ view("includes/footer"); }}
 
-    <script src="<?=url("");?>assets/js/simcify.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/simcify.min.js"></script>
     <script>
-        var deleteNotificationUrl = '<?=url("Notification@delete");?>';
+        var deleteNotificationUrl = '<?= url("Notification@delete"); ?>';
         $(document).ready(function() {
             $(".bubble").hide();
-            readNotifications("<?=url("Notification@read");?>");
+            readNotifications("<?= url("Notification@read"); ?>");
         });
     </script>
 </body>

@@ -21,7 +21,11 @@
         <div class="row">
             <div class="col-md-12 documents-group-holder">
                 <div class="row documents-grid m-o">
-                    <div class="col-md-12 content-list"><div class="loader-box"><div class="circle-loader"></div></div></div>
+                    <div class="col-md-12 content-list">
+                        <div class="loader-box">
+                            <div class="circle-loader"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -52,7 +56,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Upload File</h4>
                 </div>
-                <form class="simcy-form" id="template-upload-file-form" action="<?=url("Template@uploadfile");?>" data-parsley-validate="" loader="true" method="POST">
+                <form class="simcy-form" id="template-upload-file-form" action="<?= url("Template@uploadfile"); ?>" data-parsley-validate="" loader="true" method="POST">
                     <div class="modal-body">
                         <p>Only PDF allowed.</p>
                         <div class="form-group">
@@ -66,7 +70,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-md-12">
                                     <label>Choose file</label>
                                     <input type="file" name="file" class="dropify" data-parsley-required="true" data-allowed-file-extensions="pdf">
@@ -84,7 +88,7 @@
         </div>
     </div>
 
-    
+
     <!-- Rename file Modal -->
     <div class="modal fade" id="renamefile" role="dialog">
         <div class="close-modal" data-dismiss="modal">&times;</div>
@@ -93,11 +97,11 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Rename File</h4>
                 </div>
-                <form class="simcy-form" id="template-rename-file-form" action="<?=url("Document@updatefile");?>" data-parsley-validate="" loader="true" method="POST">
+                <form class="simcy-form" id="template-rename-file-form" action="<?= url("Document@updatefile"); ?>" data-parsley-validate="" loader="true" method="POST">
                     <div class="modal-body">
                         <p class="text-muted">Change the name of your file.</p>
                         <div class="form-group">
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-md-12">
                                     <label>File name</label>
                                     <input type="text" class="form-control" name="filename" placeholder="File name" data-parsley-required="true">
@@ -127,8 +131,10 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Update Information </h4>
                 </div>
-                <form class="shared-holder simcy-form"action="" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
-                    <div class="loader-box"><div class="circle-loader"></div></div>
+                <form class="shared-holder simcy-form" action="" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
+                    <div class="loader-box">
+                        <div class="circle-loader"></div>
+                    </div>
                 </form>
             </div>
 
@@ -160,20 +166,20 @@
         </ul>
     </div>
 
-    <script src="<?=url("");?>assets/js/jquery-3.2.1.min.js"></script>
-    <script src="<?=url("");?>assets/libs/jquery-ui/jquery-ui.min.js"></script>
-    <script src="<?=url("");?>assets/libs/bootstrap/js/bootstrap.min.js"></script>
-    <script src="<?=url("");?>assets/js//jquery.slimscroll.min.js"></script>
-    <script src="<?=url("");?>assets/libs/select2/js/select2.min.js"></script>
-    <script src="<?=url("");?>assets/js/simcify.min.js"></script>
-    <script src="<?=url("");?>assets/libs/clipboard/clipboard.min.js"></script>
-    <script src="<?=url("");?>assets/js/jquery-validate.min.js"></script>
-    <script src="<?=url("");?>assets/js/jquery-additional-methods.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/jquery-3.2.1.min.js"></script>
+    <script src="<?= url("/"); ?>assets/libs/jquery-ui/jquery-ui.min.js"></script>
+    <script src="<?= url("/"); ?>assets/libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js//jquery.slimscroll.min.js"></script>
+    <script src="<?= url("/"); ?>assets/libs/select2/js/select2.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/simcify.min.js"></script>
+    <script src="<?= url("/"); ?>assets/libs/clipboard/clipboard.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/jquery-validate.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/jquery-additional-methods.min.js"></script>
 
     <!-- custom scripts -->
-    <script src="<?=url("");?>assets/js/app.js"></script>
-    <script src="<?=url("");?>assets/js/files.js"></script>
-    <script src="<?=url("");?>assets/js/custom.js"></script>
+    <script src="<?= url("/"); ?>assets/js/app.js"></script>
+    <script src="<?= url("/"); ?>assets/js/files.js"></script>
+    <script src="<?= url("/"); ?>assets/js/custom.js"></script>
 </body>
 
 </html>

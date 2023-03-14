@@ -1,14 +1,15 @@
 <?php include "includes/head.php" ?>
+
 <body class="login">
 
     <div class="login-card mb-30">
-        <img src="<?=url("");?>uploads/app/login_stacked.png" style="display: block;width: 200px">
+        <img src="<?= url("/"); ?>uploads/app/login_stacked.png" style="display: block;width: 200px">
         @if ( $guest AND env('GUEST_SIGNING') == "Enabled" )
         <a class="singing_as_guest btn btn-block btn-success m-t-50" href="{{ $signingLink }}">Sign as a Guest</a>
         @endif
         <div class="sign-in">
             <h5 class="mb-30">Sign in to your account </h5>
-            <form class="text-left simcy-form" action="<?=url("Auth@signin");?>" data-parsley-validate="" loader="true" method="POST">
+            <form class="text-left simcy-form" action="<?= url("Auth@signin"); ?>" data-parsley-validate="" loader="true" method="POST">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
@@ -36,11 +37,11 @@
                 </div>
             </form>
         </div>
-        @if ( env('NEW_ACCOUNTS') == "Enabled" ) 
+        @if ( env('NEW_ACCOUNTS') == "Enabled" )
         <div class="sign-up" style="display: none;">
             <h5 class="mb-30">Create a free account</h5>
 
-            <form class="text-left simcy-form" id="register-form" action="<?=url("Auth@signup");?>" data-parsley-validate="" loader="true" method="POST">
+            <form class="text-left simcy-form" id="register-form" action="<?= url("Auth@signup"); ?>" data-parsley-validate="" loader="true" method="POST">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
@@ -102,7 +103,7 @@
         @endif
         <div class="forgot-password" style="display: none;">
             <h5 class="mb-30">Forgot password? don't worry, we'll <br>send your a reset link.</h5>
-            <form class="text-left simcy-form" action="<?=url("Auth@forgot");?>" method="POST" data-parsley-validate="" loader="true">
+            <form class="text-left simcy-form" action="<?= url("Auth@forgot"); ?>" method="POST" data-parsley-validate="" loader="true">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
@@ -122,27 +123,27 @@
                 </div>
             </form>
         </div>
-        @if ( env('NEW_ACCOUNTS') == "Enabled" ) 
+        @if ( env('NEW_ACCOUNTS') == "Enabled" )
         <div class="m-t-5">
             <a class="btn btn-block btn-primary-ish m-t-50 sign-up-btn" href="" target="sign-up">Create an account</a>
         </div>
         @endif
         <div class="copyright">
-            <p class="text-center"><?=date("Y")?> &copy; <?=env("APP_NAME")?> | All Rights Reserved.</p>
+            <p class="text-center"><?= date("Y") ?> &copy; <?= env("APP_NAME") ?> | All Rights Reserved.</p>
         </div>
     </div>
 
     <!-- scripts -->
-    <script src="<?=url("");?>assets/js/jquery-3.2.1.min.js"></script>
-    <script src="<?=url("");?>assets/libs/bootstrap/js/bootstrap.min.js"></script>
-    <script src="<?=url("");?>assets/js//jquery.slimscroll.min.js"></script>
-    <script src="<?=url("");?>assets/js/simcify.min.js"></script>
-    <script src="<?=url("");?>assets/js/jquery-validate.min.js"></script>
-    <script src="<?=url("");?>assets/js/jquery-additional-methods.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/jquery-3.2.1.min.js"></script>
+    <script src="<?= url("/"); ?>assets/libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js//jquery.slimscroll.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/simcify.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/jquery-validate.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/jquery-additional-methods.min.js"></script>
 
     <!-- custom scripts -->
-    <script src="<?=url("");?>assets/js/app.js"></script>
-    <script src="<?=url("");?>assets/js/custom.js"></script>
+    <script src="<?= url("/"); ?>assets/js/app.js"></script>
+    <script src="<?= url("/"); ?>assets/js/custom.js"></script>
 </body>
 
 </html>

@@ -19,9 +19,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>Type your Initial</label>
-                                        <input type="text" class="form-control signature-input" name=""
-                                               placeholder="Type your Initial" maxlength="18"
-                                               value="{{ $request->user_name }}">
+                                        <input type="text" class="form-control signature-input" name="" placeholder="Type your Initial" maxlength="18" value="{{ $request->user_name }}">
                                     </div>
                                     <div class="col-md-6">
                                         <label>Select font</label>
@@ -59,8 +57,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label>Color</label>
-                                        <input class="form-control signature-color jscolor { valueElement:null,borderRadius:'1px', borderColor:'#e6eaee',value:'000000',zIndex:'99999', onFineChange:'updateSignatureColor(this)'}"
-                                               readonly="">
+                                        <input class="form-control signature-color jscolor { valueElement:null,borderRadius:'1px', borderColor:'#e6eaee',value:'000000',zIndex:'99999', onFineChange:'updateSignatureColor(this)'}" readonly="">
                                     </div>
                                     <div class="col-md-4">
                                         <label>Style</label>
@@ -87,8 +84,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <label>Upload your signature</label>
-                                    <input type="file" name="signatureupload" class="croppie" crop-width="400"
-                                           crop-height="150">
+                                    <input type="file" name="signatureupload" class="croppie" crop-width="400" crop-height="150">
                                 </div>
                             </div>
                         </div>
@@ -100,16 +96,14 @@
                                 <div class="signature-holder">
                                     <div class="signature-body">
                                         @if ( empty( $user->signature ) )
-                                        <img src="<?= url(""); ?>uploads/signatures/demo.png" class="img-responsive">
+                                        <img src="<?= url("/"); ?>uploads/signatures/demo.png" class="img-responsive">
                                         @else
-                                        <img src="<?= url(""); ?>uploads/signatures/{{ $user->signature }}"
-                                             class="img-responsive">
+                                        <img src="<?= url("/"); ?>uploads/signatures/{{ $user->signature }}" class="img-responsive">
                                         @endif
                                     </div>
                                 </div>
                                 <div class="signature-btn-holder">
-                                    <button type="button" class="btn btn-primary edit-draw" data-toggle="modal"
-                                            data-target="#editDrawModal" data-backdrop="static" data-keyboard="false">
+                                    <button type="button" class="btn btn-primary edit-draw" data-toggle="modal" data-target="#editDrawModal" data-backdrop="static" data-keyboard="false">
                                         Adopt Signature
                                     </button>
                                 </div>

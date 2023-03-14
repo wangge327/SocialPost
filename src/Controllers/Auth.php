@@ -44,7 +44,7 @@ class Auth
             input('password'),
             array(
                 "rememberme" => true,
-                "redirect" => url(""),
+                "redirect" => url("/"),
                 "status" => "Suspended"
             )
         );
@@ -164,7 +164,7 @@ class Auth
             ),
             array(
                 "authenticate" => true,
-                "redirect" => url(""),
+                "redirect" => url("/"),
                 "uniqueEmail" => input('email')
             )
         );

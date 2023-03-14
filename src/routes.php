@@ -24,7 +24,8 @@ Router::group(['exceptionHandler' => Handler::class], function () {
         /**
          *  login Required pages
          **/
-        Router::get('/', 'Dashboard@get');
+
+        Router::get('/dashboard', 'Dashboard@get');
 
         //db test
         Router::get('/db/get_balance', 'DbControl@GetBalance');
@@ -290,6 +291,10 @@ Router::group(['exceptionHandler' => Handler::class], function () {
         response()->httpCode(404);
         echo view();
     });
+
+    Router::get('/', 'Frontend@home');
+    Router::get('/about', 'Frontend@about');
+    Router::get('/contact', 'Frontend@contact');
 
     Router::get('/mailopen', 'Guest@mailopen');
     Router::get('/view/{signingKey}', 'Guest@open');

@@ -104,9 +104,9 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td class="text-center">
                                     @if ( !empty($customer['user']->avatar) )
-                                    <img src="<?= url("") ?>uploads/avatar/{{ $customer['user']->avatar }}" class="img-responsive img-circle table-avatar">
+                                    <img src="<?= url("/") ?>uploads/avatar/{{ $customer['user']->avatar }}" class="img-responsive img-circle table-avatar">
                                     @else
-                                    <img src="<?= url("") ?>assets/images/avatar.png" class="img-responsive table-avatar">
+                                    <img src="<?= url("/") ?>assets/images/avatar.png" class="img-responsive table-avatar">
                                     @endif
                                 </td>
                                 <td>
@@ -314,7 +314,7 @@
     {{ view("includes/footer"); }}
 
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-    <script src="<?= url(""); ?>assets/js/jquery-ui.js"></script>
+    <script src="<?= url("/"); ?>assets/js/jquery-ui.js"></script>
 
     @if ( count($customers) > 0 )
     <script>
@@ -449,12 +449,12 @@
             });
 
         });
-        let baseUrl = '<?= url(""); ?>';
+        let baseUrl = '<?= url("/"); ?>';
         let csrf = '<?= csrf_token(); ?>';
     </script>
     @endif
 
-    <script src="<?= url(""); ?>assets/js/room.js"></script>
+    <script src="<?= url("/"); ?>assets/js/room.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 </body>

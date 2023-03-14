@@ -1,4 +1,5 @@
 {{ view("includes/head", $data); }}
+
 <?php
 /*
 include("config.php"); // All settings in the $config-Object

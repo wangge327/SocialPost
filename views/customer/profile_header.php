@@ -28,9 +28,9 @@
         <div class="col-md-2" style="margin-top:10px">
             <span class=" avatar dash-avatar">
                 @if( !empty($student->avatar) )
-                <img src="<?= url(""); ?>uploads/avatar/{{ $student->avatar }}" class="user-avatar img-circle">
+                <img src="<?= url("/"); ?>uploads/avatar/{{ $student->avatar }}" class="user-avatar img-circle">
                 @else
-                <img src="<?= url(""); ?>assets/images/avatar.png" class="user-avatar">
+                <img src="<?= url("/"); ?>assets/images/avatar.png" class="user-avatar">
                 @endif
             </span>
         </div>

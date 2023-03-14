@@ -1,4 +1,5 @@
 <?php include "includes/head.php" ?>
+
 <body>
     <!-- header start -->
     {{ view("includes/header", $data); }}
@@ -45,8 +46,8 @@
                                         <span class="company-action dropdown-toggle" data-toggle="dropdown"><i class="ion-ios-more"></i></span>
                                         <ul class="dropdown-menu" role="menu">
                                             <li role="presentation">
-                                                <a class="fetch-display-click" data="special_room_id:{{ $each_special_room->id }}|csrf-token:{{ csrf_token() }}" url="<?=url("FeeManage@updateSpecialFeeView");?>" holder=".update-holder" modal="#update-room-fee" href="">Edit</a>
-                                                <a class="send-to-server-click"  data="special_room_id:{{ $each_special_room->id }}|csrf-token:{{ csrf_token() }}" url="<?=url("FeeManage@deleteSpecialFee");?>" warning-title="Are you sure?" warning-message="This Special fee will be default." warning-button="Continue" loader="true" href="">Return to Default</a>
+                                                <a class="fetch-display-click" data="special_room_id:{{ $each_special_room->id }}|csrf-token:{{ csrf_token() }}" url="<?= url("FeeManage@updateSpecialFeeView"); ?>" holder=".update-holder" modal="#update-room-fee" href="">Edit</a>
+                                                <a class="send-to-server-click" data="special_room_id:{{ $each_special_room->id }}|csrf-token:{{ csrf_token() }}" url="<?= url("FeeManage@deleteSpecialFee"); ?>" warning-title="Are you sure?" warning-message="This Special fee will be default." warning-button="Continue" loader="true" href="">Return to Default</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -74,7 +75,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Add Special Room Fee</h4>
                 </div>
-                <form class="update-holder-room simcy-form" action="<?=url("FeeManage@createSpecialFee");?>" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
+                <form class="update-holder-room simcy-form" action="<?= url("FeeManage@createSpecialFee"); ?>" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">
                         <p>Please select room and bed and input special fee.</p>
                         <hr>
@@ -90,13 +91,13 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label>Room Daily Fee($)</label>
-                                    <input type="text" class="form-control"  placeholder="daily fee" disabled id="daily_input">
+                                    <input type="text" class="form-control" placeholder="daily fee" disabled id="daily_input">
                                     <input type="hidden" class="form-control" name="daily" placeholder="daily fee" id="daily_input_hidden">
                                 </div>
                             </div>
                         </div>
 
-                        <input type="hidden" name="csrf-token" value="{{ csrf_token(); }}"/>
+                        <input type="hidden" name="csrf-token" value="{{ csrf_token(); }}" />
 
                         <hr>
                         <div class="modal-footer">
@@ -120,8 +121,10 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Update Special Room Fee</h4>
                 </div>
-                <form class="update-holder simcy-form" id="update-special-room-form" action="<?=url("FeeManage@updateSpecialFee");?>" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
-                    <div class="loader-box"><div class="circle-loader"></div></div>
+                <form class="update-holder simcy-form" id="update-special-room-form" action="<?= url("FeeManage@updateSpecialFee"); ?>" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
+                    <div class="loader-box">
+                        <div class="circle-loader"></div>
+                    </div>
                 </form>
             </div>
 
@@ -143,21 +146,21 @@
             });
         });
 
-        let baseUrl = '<?=url("");?>';
-        let csrf='<?=csrf_token();?>';
+        let baseUrl = '<?= url("/"); ?>';
+        let csrf = '<?= csrf_token(); ?>';
 
-        $( "#weekly_input" ).keyup(function() {
+        $("#weekly_input").keyup(function() {
             var daily_fee = Math.round($(this).val() / 7 * 100) / 100;
-            $( "#daily_input" ).val(daily_fee);
-            $( "#daily_input_hidden" ).val(daily_fee);
+            $("#daily_input").val(daily_fee);
+            $("#daily_input_hidden").val(daily_fee);
         });
     </script>
     <!-- scripts -->
 
-    <script src="<?= url(""); ?>assets/js/room.js"></script>
+    <script src="<?= url("/"); ?>assets/js/room.js"></script>
 
     <style>
-        .dt-buttons{
+        .dt-buttons {
             display: none;
         }
     </style>

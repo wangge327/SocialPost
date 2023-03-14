@@ -79,7 +79,11 @@
                     </div>
                 </div>
                 <div class="row documents-grid">
-                    <div class="col-md-12 content-list"><div class="loader-box"><div class="circle-loader"></div></div></div>
+                    <div class="col-md-12 content-list">
+                        <div class="loader-box">
+                            <div class="circle-loader"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -97,7 +101,7 @@
             @endif
             <a href="" action="rename" class="btn btn-primary" data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="Rename"><i class="ion-edit"></i></a>
             @if ( env('DISABLE_SHARE') != "Enabled" )
-                <a href="" action="share" class="btn btn-primary" data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="Share"><i class="ion-share"></i></a>
+            <a href="" action="share" class="btn btn-primary" data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="Share"><i class="ion-share"></i></a>
             @endif
         </div>
     </div>
@@ -111,7 +115,7 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Upload File</h4>
                 </div>
-                <form class="simcy-form" id="upload-file-form" action="<?=url("Document@uploadfile");?>" data-parsley-validate="" loader="true" method="POST">
+                <form class="simcy-form" id="upload-file-form" action="<?= url("Document@uploadfile"); ?>" data-parsley-validate="" loader="true" method="POST">
                     <div class="modal-body">
                         <p>Only PDF allowed.</p>
                         <div class="form-group">
@@ -125,7 +129,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-md-12">
                                     <label>Choose file</label>
                                     <input type="file" name="file" class="dropify" data-parsley-required="true" data-allowed-file-extensions="pdf">
@@ -152,11 +156,11 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Create Folder</h4>
                 </div>
-                <form class="simcy-form" id="create-folder-form" action="<?=url("Document@createfolder");?>" data-parsley-validate="" loader="true" method="POST">
+                <form class="simcy-form" id="create-folder-form" action="<?= url("Document@createfolder"); ?>" data-parsley-validate="" loader="true" method="POST">
                     <div class="modal-body">
                         <p class="text-muted">Use folders to organise your files.</p>
                         <div class="form-group">
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-md-12">
                                     <label>Folder name</label>
                                     <input type="text" class="form-control" name="name" placeholder="Folder name" data-parsley-required="true">
@@ -185,11 +189,11 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Rename Folder</h4>
                 </div>
-                <form class="simcy-form" id="rename-folder-form" action="<?=url("Document@updatefolder");?>" data-parsley-validate="" loader="true" method="POST">
+                <form class="simcy-form" id="rename-folder-form" action="<?= url("Document@updatefolder"); ?>" data-parsley-validate="" loader="true" method="POST">
                     <div class="modal-body">
                         <p class="text-muted">Change the name of your folder.</p>
                         <div class="form-group">
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-md-12">
                                     <label>Folder name</label>
                                     <input type="text" class="form-control" name="foldername" placeholder="Folder name" data-parsley-required="true">
@@ -219,11 +223,11 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Rename File</h4>
                 </div>
-                <form class="simcy-form" id="rename-file-form" action="<?=url("Document@updatefile");?>" data-parsley-validate="" loader="true" method="POST">
+                <form class="simcy-form" id="rename-file-form" action="<?= url("Document@updatefile"); ?>" data-parsley-validate="" loader="true" method="POST">
                     <div class="modal-body">
                         <p class="text-muted">Change the name of your file.</p>
                         <div class="form-group">
-                             <div class="row">
+                            <div class="row">
                                 <div class="col-md-12">
                                     <label>File name</label>
                                     <input type="text" class="form-control" name="filename" placeholder="File name" data-parsley-required="true">
@@ -253,8 +257,10 @@
                 <div class="modal-header">
                     <h4 class="modal-title">Update Information </h4>
                 </div>
-                <form class="shared-holder simcy-form"action="" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
-                    <div class="loader-box"><div class="circle-loader"></div></div>
+                <form class="shared-holder simcy-form" action="" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
+                    <div class="loader-box">
+                        <div class="circle-loader"></div>
+                    </div>
                 </form>
             </div>
 
@@ -332,8 +338,8 @@
             <li><a action="duplicate" href="">Duplicate</a>
             </li>
             @if ( env('DISABLE_SHARE') != "Enabled" )
-                <li><a action="share" href="">Share</a>
-                </li>
+            <li><a action="share" href="">Share</a>
+            </li>
             @endif
             <li><a action="download" href="">Download</a>
             </li>
@@ -350,14 +356,14 @@
     </div>
 
 
-    <script src="<?=url("");?>assets/libs/jquery-ui/jquery-ui.min.js"></script>
-    <script src="<?=url("");?>assets/libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?= url("/"); ?>assets/libs/jquery-ui/jquery-ui.min.js"></script>
+    <script src="<?= url("/"); ?>assets/libs/bootstrap/js/bootstrap.min.js"></script>
 
-    <script src="<?=url("");?>assets/libs/select2/js/select2.min.js"></script>
-    <script src="<?=url("");?>assets/js/simcify.min.js"></script>
-    <script src="<?=url("");?>assets/libs/clipboard/clipboard.min.js"></script>
+    <script src="<?= url("/"); ?>assets/libs/select2/js/select2.min.js"></script>
+    <script src="<?= url("/"); ?>assets/js/simcify.min.js"></script>
+    <script src="<?= url("/"); ?>assets/libs/clipboard/clipboard.min.js"></script>
 
-    <script src="<?=url("");?>assets/js/files.js"></script>
+    <script src="<?= url("/"); ?>assets/js/files.js"></script>
 
 </body>
 
