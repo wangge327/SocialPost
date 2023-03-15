@@ -12,8 +12,10 @@ class Posting
     public function get()
     {
         $user = Auth::user();
+        $fb_pages = Database::table("facebook_pages")->where("user_id", $user->id)->first();
         $data = array(
-            "user" => $user
+            "user" => $user,
+            "fb_pages" => $fb_pages
         );
 
         return view('posting/view', $data);

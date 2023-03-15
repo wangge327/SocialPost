@@ -64,7 +64,8 @@ if (isset($_GET['access_token'])) {
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary">保存</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <!--<button type="submit" class="btn btn-primary">保存</button>-->
                             </div>
                         </div>
                     </div>

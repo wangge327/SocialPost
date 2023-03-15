@@ -8,7 +8,7 @@
     <div class="content">
         <div class="page-title">
             <h3>Publish Post</h3>
-            <p>Please add post content to publish post</p>
+            <p>Please edit content to publish post</p>
         </div>
         <div class="row margin-0">
             <div class="col-md-12" style="padding:0">
@@ -23,6 +23,23 @@
                         <br><br>
 
                         <div>
+                            <div class="m-item m-b-l">
+                                @if(empty($fb_pages))
+                                <span style="color:red">Facebook page was not set. Please login with facebook account and set Facebook page.</span>
+                                <br>
+                                <a href="<?= url("Facebook@addPage"); ?>">Please redirect to set Facebook page. </a>
+                                @else
+                                <input type="checkbox" name="social_type[]" value="Facebook">
+                                <label>Facebook page name to publish this post :
+                                    <span style="color:red">{{$fb_pages->page_name}}</span>
+                                </label>
+                                @endif
+
+                            </div>
+
+                        </div>
+                        <!--
+                        <div>
                             <p>Please select social network</p>
                             <div class="m-item m-b-l">
                                 <input type="checkbox" name="social_type[]" value="Facebook">
@@ -33,6 +50,7 @@
                                 <label>Twitter</label>
                             </div>
                         </div>
+-->
 
                         <br><br><br>
 
