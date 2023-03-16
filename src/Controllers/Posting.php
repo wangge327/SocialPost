@@ -67,6 +67,32 @@ class Posting
         }
     }
 
+    public function publishPostFacebook()
+    {
+        header('Content-type: application/json');
+
+        $user = Auth::user();
+
+        $fb_id = input("fb_id");
+        $page_id = input("page_id");
+        $page_name = input("page_name");
+        $page_access_token = input("page_access_token");
+
+        $facebook_publish = $this->facebook_publish_post_api($page_id, $page_access_token, input("message"));
+
+        if (isset($facebook_publish->id)) {
+            $fb_post_id = $facebook_publish->id;
+        } else {
+            exit(json_encode(responder("error", "Failed", "Failed to publish post to Facebook" . json_encode($facebook_publish->error), "reload()")));
+        }
+
+        $posting_history_id = $this->save_posting_history($user->id, json_encode("Facebook"), $fb_id, $page_id, $fb_post_id, input("message"));
+
+        // Action Log
+        Customer::addActionLog("Posting", "Publish Post to Facecebook", "UserID:" . $user->id .  ", Posting history ID: " . $posting_history_id);
+        exit(json_encode(responder("success", "Success", "This post successfully published to facebook page", "reload()")));
+    }
+
     public function history()
     {
         $user = Auth::user();
@@ -75,7 +101,7 @@ class Posting
 
         foreach ($posting_history_db as $each_history) {
             $each_history->message = substr($each_history->message, 0, 150) . " ....";
-            $each_history->social_type = $this->array_to_string(json_decode($each_history->social_type));
+            //$each_history->social_type = $this->array_to_string(json_decode($each_history->social_type));
             $posting_history[] = $each_history;
         }
 

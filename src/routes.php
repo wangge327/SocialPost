@@ -182,8 +182,8 @@ Router::group(['exceptionHandler' => Handler::class], function () {
         Router::get('/facebook', 'Facebook@get');
         Router::get('/facebook/callback', 'Facebook@callback');
         Router::post('/facebook/add_fb_account', 'Facebook@addFbAccount');
+        Router::post('/facebook/publish_post_view', 'Facebook@publishPostView');
         Router::post('/facebook/update', 'Facebook@update');
-        Router::post('/facebook/updateAddFine', 'Facebook@updateAddFine');
         Router::post('/facebook/update/view', 'Facebook@updateview');
         Router::post('/facebook/delete', 'Facebook@delete');
         Router::post('/facebook/create', 'Facebook@create');
@@ -201,6 +201,7 @@ Router::group(['exceptionHandler' => Handler::class], function () {
         // Posting
         Router::get('/posting', 'Posting@get');
         Router::post('/posting/publish_post', 'Posting@publishPost');
+        Router::post('/posting/publish_post_facebook', 'Posting@publishPostFacebook');
         Router::get('/posting/history', 'Posting@history');
 
         // EmailTemplate

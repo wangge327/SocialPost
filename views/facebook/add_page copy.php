@@ -10,9 +10,8 @@ include("config.php"); // All settings in the $config-Object
     {{ view("includes/sidebar", $data); }}
     <div class="content">
         <div class="page-title">
-            <h3>Facebook Pages</h3>
-            <p>You will get all pages of registered facebook account automatically using facebook api.</p>
-            <p>Please click "Publish Post" button from page lists if you want to publish post to page.</p>
+            <h3>Facebook账号</h3>
+            <p>Please select one of the many pages of your registered facebook account to send posts.</p>
         </div>
         <div class="row margin-0">
             <div class="col-md-11 bg-white" style="padding:20px 10px">
@@ -53,6 +52,7 @@ include("config.php"); // All settings in the $config-Object
                                     <th>No</th>
                                     <th>Page ID</th>
                                     <th>Page Name</th>
+                                    <th>Status</th>
                                     <th class="text-center w-70">Action</th>
                                 </tr>
                             </thead>
@@ -64,9 +64,21 @@ include("config.php"); // All settings in the $config-Object
                                     <td>{{$index + 1 }}</td>
                                     <td>{{$each_fb_page->id}}</td>
                                     <td><strong>{{$each_fb_page->name}}</strong></td>
+                                    <td>
+                                        @if($each_fb_page->id == $fb_pages->page_id)
+                                        <span class="label label-success">Set</span>
+                                        @else
+                                        <span class="label label-warning">Unset</span>
+                                        @endif
+                                    </td>
 
                                     <td class="text-center">
-                                        <a class="fetch-display-click btn btn-success" data="user_id:{{$user->id}}|fb_id:{{$fb_user->fb_id}}|page_id:{{$each_fb_page->id}}|page_name:{{$each_fb_page->name}}|page_access_token:{{$each_fb_page->page_token}}|csrf-token:{{ csrf_token() }}" url="<?= url("Facebook@publishPostView"); ?>" holder=".update-holder" modal="#publish-post" href="">Publish Post</a>
+                                        @if($each_fb_page->id == $fb_pages->page_id)
+                                        <a class="btn btn-success send-to-server-click" data="status:Unset|user_id:{{$user->id}}|fb_id:{{$fb_user->fb_id}}|page_id:{{$each_fb_page->id}}|page_name:{{$each_fb_page->name}}|page_access_token:{{$each_fb_page->page_token}}|csrf-token:{{ csrf_token() }}" url="<?= url("Facebook@AddPageDB"); ?>" warning-title="Are you sure?" warning-message="This Page will be Unset." warning-button="Continue" loader="true">Unset</a>
+                                        @else
+                                        <a class="btn btn-primary send-to-server-click" data="status:Set|user_id:{{$user->id}}|fb_id:{{$fb_user->fb_id}}|page_id:{{$each_fb_page->id}}|page_name:{{$each_fb_page->name}}|page_access_token:{{$each_fb_page->page_token}}|csrf-token:{{ csrf_token() }}" url="<?= url("Facebook@AddPageDB"); ?>" warning-title="Are you sure?" warning-message="This Page will be Set." warning-button="Continue" loader="true">Set</a>
+                                        @endif
+
                                     </td>
                                 </tr>
                                 @endforeach
@@ -85,23 +97,6 @@ include("config.php"); // All settings in the $config-Object
         </div>
     </div>
 
-    <!-- Publish Post Modal -->
-    <div class="modal fade" id="publish-post" role="dialog">
-        <div class="close-modal" data-dismiss="modal">&times;</div>
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Publish Post</h4>
-                </div>
-                <form class="update-holder simcy-form" id="update-customer-form" action="<?= url("Posting@publishPostFacebook"); ?>" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
-                    <div class="loader-box">
-                        <div class="circle-loader"></div>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
 
     <!-- footer -->
     {{ view("includes/footer"); }}

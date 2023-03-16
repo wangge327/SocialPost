@@ -165,6 +165,7 @@ $reports_items = Database::table("report")->get();
             </ul>
         </li>
 
+        <!--
         <li class="pushy-submenu posting-submenu" style="cursor:pointer">
             <a>
                 <label class="menu-icon"><i class="ion-ios-flower"></i> </label>
@@ -183,6 +184,7 @@ $reports_items = Database::table("report")->get();
                 </li>
             </ul>
         </li>
+            -->
         @endif
 
         <li><a href="<?= url("Settings@get"); ?>">

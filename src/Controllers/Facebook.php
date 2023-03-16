@@ -35,6 +35,18 @@ class Facebook
         return view('facebook/add_page', $data);
     }
 
+    public function publishPostView()
+    {
+        $data = array(
+            "user_id" => input("user_id"),
+            "fb_id" => input("fb_id"),
+            "page_id" => input("page_id"),
+            "page_name" => input("page_name"),
+            "page_access_token" => input("page_access_token")
+        );
+        return view('facebook/publish_post_modal', $data);
+    }
+
     public function addPageDB()
     {
         header('Content-type: application/json');
