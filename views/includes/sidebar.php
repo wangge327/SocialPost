@@ -148,7 +148,7 @@ $reports_items = Database::table("report")->get();
             </a>
             <ul>
                 <li class="pushy-link">
-                    <a href="">
+                    <a href="<?= url("Youtube@get"); ?>">
                         <span class="text">Youtube账号</span>
                     </a>
                 </li>
@@ -157,11 +157,13 @@ $reports_items = Database::table("report")->get();
                         <span class="text">Youtube视频设置</span>
                     </a>
                 </li>
+                <!--
                 <li class="pushy-link">
                     <a href="<?= url("Youtube@getPost"); ?>">
                         <span class="text">Youtube发帖管理</span>
                     </a>
                 </li>
+            -->
             </ul>
         </li>
 
