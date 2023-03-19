@@ -60,6 +60,17 @@ $frontend_url = url("views/frontend");
                             Clear Do’s and Don’ts. We even like that the latter are phrased as “What You Should Never Disclose”, which is more specific and clearer than a plain old “Don’t.”
                         </p>
                     </div>
+
+                    <div class="signer-document">
+                        <h3>Limited Use Policy</h3>
+                        <p>
+                            Our social post app complies with the Google API Services User Data Policy, including the Limited Use requirements.
+                        </p>
+                        <p>
+                            You should use and transfer of information received from Google APIs to any other app will adhere to
+                            <a style="color:blue" href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.”
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

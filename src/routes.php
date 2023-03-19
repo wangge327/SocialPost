@@ -193,6 +193,7 @@ Router::group(['exceptionHandler' => Handler::class], function () {
         // Youtube
         Router::get('/youtube', 'Youtube@get');
         Router::get('/youtube/callback', 'Youtube@callback');
+        Router::post('/youtube/callbackajax', 'Youtube@callbackAjax');
         Router::get('/youtube/getVideo', 'Youtube@getVideo');
         Router::post('/youtube/searchVideoAjax', 'Youtube@searchVideoAjax');
         Router::post('/youtube/chooseVideoDB', 'Youtube@chooseVideoDB');

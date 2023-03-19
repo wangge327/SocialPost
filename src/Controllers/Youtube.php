@@ -30,6 +30,45 @@ class Youtube
         return view('youtube/get-video', $data);
     }
 
+    public function callback()
+    {
+        $data = array(
+            "user" => Auth::user()
+        );
+        return view('youtube/callback', $data);
+    }
+
+    public function callbackAjax()
+    {
+        $return = array();
+        $callback_array = $this->parse_url_hash(input("callback_url"));
+        if (isset($callback_array['error']))
+            echo "error";
+
+        if (isset($callback_array['state'])) {
+            if ($callback_array['state'] == 'pass-through') {
+                $google_login_expire = time() + 3600;
+
+                $_SESSION["google_login"] = true;
+                $_SESSION["google_login_expire"] = $google_login_expire;
+                $_SESSION["google_login_access_token"] = $callback_array['access_token'];
+                echo "success";
+            }
+        }
+        //print_r(json_encode($callback_array));
+    }
+
+    function parse_url_hash($hash_string)
+    {
+        $return_array = array();
+        $hash_explode = explode("&", $hash_string);
+        foreach ($hash_explode as $each_hash_explode) {
+            $t_explode = explode("=", $each_hash_explode);
+            $return_array[$t_explode[0]] = $t_explode[1];
+        }
+        return $return_array;
+    }
+
     public function searchVideoAjax()
     {
         $return = array();
