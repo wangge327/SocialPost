@@ -22,13 +22,17 @@ if ($_SESSION["google_login"]) {
             <h3>Youtubek账号</h3>
             @if($_SESSION["google_login"] != true)
             <div class=" page-actions lower">
-                <a class="btn btn-primary" onclick="oauthSignIn()">Login with Google</a>
+                <a onclick="oauthSignIn()" style="color:#212121;cursor: pointer;">
+                    <img src="<?= url("/"); ?>assets/images/yt_icon_rgb.png" style="height:22px;margin-top: -8px;">
+                    <span style="font-size: 19px; line-height: 7px;">YouTube</span>
+                </a>
             </div>
+            <br>
+            <p>Please login with youtube account.</p>
             @else
             <p style="color:red">Now you logged into Youtube!</p>
             @endif
-            <br>
-            <p>所有添加的 Youtube 帐户列表</p>
+
         </div>
 
     </div>

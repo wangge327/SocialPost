@@ -1,6 +1,11 @@
 {{ view("includes/head", $data); }}
 <?php
-include("config.php"); // All settings in the $config-Object
+$t = time();
+
+if ($_SESSION["google_login"]) {
+    if ($_SESSION["google_login_expire"] < $t)
+        $_SESSION["google_login"] = false;
+}
 ?>
 
 <body>
@@ -31,7 +36,7 @@ include("config.php"); // All settings in the $config-Object
                                 <th>No</th>
                                 <th>Page ID</th>
                                 <th>Title</th>
-                                <th class="text-center w-70">Action</th>
+                                <th class="text-center" style="width:320px;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,6 +54,7 @@ include("config.php"); // All settings in the $config-Object
 
                                 <td class="text-center">
                                     <a class="btn btn-success send-to-server-click" data="user_id:{{$user->id}}|video_id:{{$each_video->video_id}}|csrf-token:{{ csrf_token() }}" url="<?= url("Youtube@unsetVideoDB"); ?>" warning-title="Are you sure?" warning-message="This Video will be Unset." warning-button="Continue" loader="true">Unset Highlight</a>
+                                    <a class="fetch-display-click btn btn-primary" data="user_id:{{$user->id}}|video_id:{{$each_video->video_id}}|csrf-token:{{ csrf_token() }}" url="<?= url("Youtube@sendCommentView"); ?>" holder=".update-holder" modal="#send-comment" style="margin-left:10px">Send Comment</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -93,6 +99,23 @@ include("config.php"); // All settings in the $config-Object
         </div>
     </div>
 
+    <!-- Send Comment Modal -->
+    <div class="modal fade" id="send-comment" role="dialog">
+        <div class="close-modal" data-dismiss="modal">&times;</div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Send Comment</h4>
+                </div>
+                <form class="update-holder simcy-form" id="update-customer-form" action="<?= url("Youtube@sendComment"); ?>" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
+                    <div class="loader-box">
+                        <div class="circle-loader"></div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
 
     <!-- footer -->
     {{ view("includes/footer"); }}

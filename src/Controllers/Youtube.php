@@ -90,6 +90,22 @@ class Youtube
         print_r(json_encode($return));
     }
 
+    public function sendComment()
+    {
+    }
+
+    public function sendCommentView()
+    {
+        $data = array(
+            "user_id" => input("user_id"),
+            "video_id" => input("video_id"),
+            "page_access_token" => input("page_access_token")
+        );
+
+        //exit(json_encode(responder("error", "Login Failed", "Login Youtube", "window.location.replace('" . env("APP_URL") . "/youtube')")));
+        return view('youtube/send_comment_modal', $data);
+    }
+
     function check_video_set($youtube_videos_array, $t_video_id)
     {
         foreach ($youtube_videos_array as $each_set_video) {

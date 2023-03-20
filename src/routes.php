@@ -198,7 +198,8 @@ Router::group(['exceptionHandler' => Handler::class], function () {
         Router::post('/youtube/searchVideoAjax', 'Youtube@searchVideoAjax');
         Router::post('/youtube/chooseVideoDB', 'Youtube@chooseVideoDB');
         Router::post('/youtube/unsetVideoDB', 'Youtube@unsetVideoDB');
-        Router::get('/youtube/getPost', 'Youtube@getPost');
+        Router::post('/youtube/send_comment_view', 'Youtube@sendCommentView');
+        Router::post('/youtube/send_comment', 'Youtube@sendComment');
 
         // Posting
         Router::get('/posting', 'Posting@get');
