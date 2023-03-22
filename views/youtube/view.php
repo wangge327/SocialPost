@@ -19,7 +19,7 @@ if ($_SESSION["google_login"]) {
     <div class="content">
         <div class="page-title">
 
-            <h3>Youtubek账号</h3>
+            <h3>Youtubek Account</h3>
             @if($_SESSION["google_login"] != true)
             <div class=" page-actions lower">
                 <a onclick="oauthSignIn()" style="color:#212121;cursor: pointer;">

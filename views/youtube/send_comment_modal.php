@@ -8,6 +8,7 @@
                 <input type="hidden" name="csrf-token" value="{{ csrf_token(); }}" />
                 <input type="hidden" name="user_id" value="{{ $user_id }}" />
                 <input type="hidden" name="video_id" value="{{ $video_id }}" />
+                <input type="hidden" name="comment_thread" value="{{ $comment_thread }}" />
                 <textarea style="width: 100%; height: 250px;" name="comment" data-parsley-required="true"></textarea>
             </div>
         </div>

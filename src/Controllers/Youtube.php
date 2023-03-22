@@ -72,7 +72,7 @@ class Youtube
     public function searchVideoAjax()
     {
         $return = array();
-        $search_list = $this->seachVideoAPI(env("GOOGLE_API_KEY"), input("q"));
+        $search_list = $this->seachVideoAPI(env("GOOGLE_API_KEY"), urlencode(input("q")));
         foreach ($search_list['items'] as $each_list) {
             $t_array = array();
             $t_array['user_id'] = input("user_id");
@@ -92,6 +92,43 @@ class Youtube
 
     public function sendComment()
     {
+        header('Content-type: application/json');
+        
+        $this->sendCommentAPI(env("GOOGLE_API_KEY"), $_SESSION["google_login_access_token"], input("video_id"), input("comment"));
+
+        Customer::addActionLog("Youtube", "Send Comment", "Video ID : " . input("video_id"));
+        exit(json_encode(responder("success", "Send Comment", "Comment sent to this video successfully.", "reload()")));
+        
+    }
+
+    function sendCommentAPI($key, $access_token, $video_id, $content)
+    {
+        $ch = curl_init();
+        $authorization = "Authorization: Bearer " . $access_token;
+        $url = 'https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet';
+        $url .= '&key=' . $key;
+        
+        $post = array(
+            "snippet" => array (
+                "videoId" => $video_id,
+                "topLevelComment" => array (
+                    "snippet" => array (
+                        "textOriginal" => $content
+                    )
+                )
+            )
+        );
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post));
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        return json_decode($result);
     }
 
     public function sendCommentView()
@@ -99,10 +136,11 @@ class Youtube
         $data = array(
             "user_id" => input("user_id"),
             "video_id" => input("video_id"),
+            //"comment_thread" => $this->getCommentThreadAPI(env("GOOGLE_API_KEY"), input("video_id")),
+            "comment_thread" => "",
             "page_access_token" => input("page_access_token")
         );
 
-        //exit(json_encode(responder("error", "Login Failed", "Login Youtube", "window.location.replace('" . env("APP_URL") . "/youtube')")));
         return view('youtube/send_comment_modal', $data);
     }
 
@@ -126,6 +164,19 @@ class Youtube
         $data = json_decode(curl_exec($ch), true);
 
         return $data;
+    }
+
+    function getCommentThreadAPI($key, $video_id)
+    {
+        $url = 'https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&&key=' . $key;
+        $url .= '&videoId=' . $video_id;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        $data = json_decode(curl_exec($ch), true);
+
+        return $data['items'][0]['id'];
     }
 
     public function chooseVideoDB()

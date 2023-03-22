@@ -144,17 +144,17 @@ $reports_items = Database::table("report")->get();
         <li class="pushy-submenu yt-submenu" style="cursor:pointer">
             <a>
                 <label class="menu-icon"><i class="ion-social-youtube"></i> </label>
-                <span class="text">Youtube管理</span>
+                <span class="text">Youtube</span>
             </a>
             <ul>
                 <li class="pushy-link">
                     <a href="<?= url("Youtube@get"); ?>">
-                        <span class="text">Youtube账号</span>
+                        <span class="text">Youtube Account</span>
                     </a>
                 </li>
                 <li class="pushy-link">
                     <a href="<?= url("Youtube@getVideo"); ?>">
-                        <span class="text">Youtube视频设置</span>
+                        <span class="text">Youtube Videos</span>
                     </a>
                 </li>
                 <!--

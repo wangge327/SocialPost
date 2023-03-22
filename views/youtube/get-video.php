@@ -107,7 +107,7 @@ if ($_SESSION["google_login"]) {
                 <div class="modal-header">
                     <h4 class="modal-title">Send Comment</h4>
                 </div>
-                <form class="update-holder simcy-form" id="update-customer-form" action="<?= url("Youtube@sendComment"); ?>" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
+                <form class="update-holder simcy-form" id="send-comment-form" action="/youtube/send_comment" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
                     <div class="loader-box">
                         <div class="circle-loader"></div>
                     </div>
