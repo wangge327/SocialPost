@@ -23,7 +23,7 @@ $frontend_url = url("views/frontend");
                                         <div class="col-md-6">
                                             <div class="dream">
                                                 <h1>
-                                                    PowerFul <br>Posting <br>Your dream <br>to social
+                                                    Social <br>Posting <br>For <br>Your dream
                                                 </h1>
                                                 <a class="read_more" href="Javascript:void(0)">Get Stared</a>
                                                 <a class="read_more" href="Javascript:void(0)">Contact Us</a>
@@ -31,7 +31,7 @@ $frontend_url = url("views/frontend");
                                         </div>
                                         <div class="col-md-6">
                                             <div class="dream_img">
-                                                <figure><img src="<?= $frontend_url; ?>images/dream_img.png" alt="#" /></figure>
+                                                <figure><img src="<?= $frontend_url; ?>images/dream_img.jpg" alt="#" /></figure>
                                             </div>
                                         </div>
                                     </div>

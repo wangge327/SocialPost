@@ -17,8 +17,8 @@
                         <h3>Get Support.</h3>
                         <ul class="conta">
                             <li><i class="fa fa-map-marker" aria-hidden="true"></i>Address : Yanji Jilin, China</li>
-                            <li><i class="fa fa-phone" aria-hidden="true"></i>Call : +86 138 8888 8888</li>
-                            <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="Javascript:void(0)"> Email : <?= env("MAIL_FROM") ?></a></li>
+                            <li><i class="fa fa-phone" aria-hidden="true"></i>Call : +86 139 0443 3961</li>
+                            <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="Javascript:void(0)"> Email : yan@yituierp.co</a></li>
                         </ul>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <p>© <?= date("Y") ?> All Rights Reserved. <a href="<?= env("APP_URL") ?>"> <?= env("APP_NAME") ?></a></p>
+                        <p>© <?= date("Y") ?> All Rights Reserved. <a href="<?= env("APP_URL") ?>"> 延边鑫海源经贸有限公司</a></p>
                     </div>
                 </div>
             </div>
