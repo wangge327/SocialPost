@@ -93,10 +93,11 @@ class Youtube
     public function sendComment()
     {
         header('Content-type: application/json');
+        $user = Auth::user();
         
         $this->sendCommentAPI(env("GOOGLE_API_KEY"), $_SESSION["google_login_access_token"], input("video_id"), input("comment"));
-
-        Customer::addActionLog("Youtube", "Send Comment", "Video ID : " . input("video_id"));
+        $posting_history_id = $this->save_youtube_posting_history($user->id, "Youtube", input("video_id"), input("comment"));
+        Customer::addActionLog("Youtube", "Send Comment", "Video ID : " . input("video_id") . ", Posting history ID: " . $posting_history_id);
         exit(json_encode(responder("success", "Send Comment", "Comment sent to this video successfully.", "reload()")));
         
     }
@@ -129,6 +130,21 @@ class Youtube
         curl_close($ch);
 
         return json_decode($result);
+    }
+
+    function save_youtube_posting_history($user_id, $social_type, $yt_video_id, $message)
+    {
+        $insert_array = array(
+            "user_id" => $user_id,
+            "social_type" => $social_type,
+            "yt_video_id" => $yt_video_id,
+            "message" => $message
+        );
+
+        Database::table("posting_history")->insert($insert_array);
+        $posting_history_id = Database::table("posting_history")->insertId();
+
+        return $posting_history_id;
     }
 
     public function sendCommentView()
@@ -191,7 +207,7 @@ class Youtube
             $video_infor_data = (array) $video_infor;
 
             Database::table("youtube_videos")->insert($video_infor_data);
-            Customer::addActionLog("Youtube", "Set Youtube Video", "Set Video ID : " . $video_infor_data->video_id);
+            Customer::addActionLog("Youtube", "Set Youtube Video", "Set Video ID : " . $video_infor_data['video_id']);
         }
 
 

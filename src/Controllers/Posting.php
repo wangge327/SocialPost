@@ -86,7 +86,7 @@ class Posting
             exit(json_encode(responder("error", "Failed", "Failed to publish post to Facebook" . json_encode($facebook_publish->error), "reload()")));
         }
 
-        $posting_history_id = $this->save_posting_history($user->id, json_encode("Facebook"), $fb_id, $page_id, $fb_post_id, input("message"));
+        $posting_history_id = $this->save_posting_history($user->id, "Facebook", $fb_id, $page_id, $fb_post_id, input("message"));
 
         // Action Log
         Customer::addActionLog("Posting", "Publish Post to Facecebook", "UserID:" . $user->id .  ", Posting history ID: " . $posting_history_id);
@@ -132,7 +132,7 @@ class Posting
         return $result;
     }
 
-    function save_posting_history($user_id, $social_type, $fb_id, $fb_page_id, $fb_post_id, $message)
+    public function save_posting_history($user_id, $social_type, $fb_id, $fb_page_id, $fb_post_id, $message)
     {
         $insert_array = array(
             "user_id" => $user_id,
