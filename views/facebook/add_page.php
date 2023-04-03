@@ -11,8 +11,10 @@ include("config.php"); // All settings in the $config-Object
     <div class="content">
         <div class="page-title">
             <h3>Facebook Pages</h3>
-            <p>You will get all pages of registered facebook account automatically using facebook api.</p>
-            <p>Please click "Publish Post" button from page lists if you want to publish post to page.</p>
+            <p>您将使用 facebook api 自动获取已注册 facebook 帐户的所有页面。</p>
+            <!--<p>You will get all pages of registered facebook account automatically using facebook api.</p>-->
+            <p>如果您想发布帖子到页面，请点击页面列表中的“发布帖子”按钮。</p>
+            <!--<p>Please click "Publish Post" button from page lists if you want to publish post to page.</p>-->
         </div>
         <div class="row margin-0">
             <div class="col-md-11 bg-white" style="padding:20px 10px">
@@ -23,7 +25,8 @@ include("config.php"); // All settings in the $config-Object
                         <div class="row">
                             @if(empty($fb_user))
                             <div class="col-md-12">
-                                <label style="color:red">You didn't register Facebook account</label>
+                                <label style="color:red">您没有登录 Facebook 帐户</label>
+                                <!--<label style="color:red">You didn't register Facebook account</label>-->
                             </div>
                             @else
                             <div class="col-md-12">
@@ -35,11 +38,12 @@ include("config.php"); // All settings in the $config-Object
                         <div class="row">
                             @if(empty($fb_user))
                             <div class="col-md-12">
-                                <a href="<?= url("Facebook@get"); ?>">Please redirect to login with Facebook account. </a>
+                                <a href="<?= url("Facebook@get"); ?>">请重定向到使用 Facebook 帐户登录。 </a>
+                                <!--<a href="<?= url("Facebook@get"); ?>">Please redirect to login with Facebook account. </a>-->
                             </div>
                             @else
                             <div class="col-md-12">
-                                <label>Facebook Name : </label>
+                                <label>Facebook 姓名 : </label>
                                 <span class="color-red">{{$fb_user->fb_name}}</span>
                             </div>
                             @endif
@@ -52,8 +56,8 @@ include("config.php"); // All settings in the $config-Object
                                 <tr>
                                     <th>No</th>
                                     <th>Page ID</th>
-                                    <th>Page Name</th>
-                                    <th class="text-center w-70">Action</th>
+                                    <th>Page 姓名</th>
+                                    <th class="text-center w-70">行动</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,14 +70,14 @@ include("config.php"); // All settings in the $config-Object
                                     <td><strong>{{$each_fb_page->name}}</strong></td>
 
                                     <td class="text-center">
-                                        <a class="fetch-display-click btn btn-success" data="user_id:{{$user->id}}|fb_id:{{$fb_user->fb_id}}|page_id:{{$each_fb_page->id}}|page_name:{{$each_fb_page->name}}|page_access_token:{{$each_fb_page->page_token}}|csrf-token:{{ csrf_token() }}" url="<?= url("Facebook@publishPostView"); ?>" holder=".update-holder" modal="#publish-post" href="">Publish Post</a>
+                                        <a class="fetch-display-click btn btn-success" data="user_id:{{$user->id}}|fb_id:{{$fb_user->fb_id}}|page_id:{{$each_fb_page->id}}|page_name:{{$each_fb_page->name}}|page_access_token:{{$each_fb_page->page_token}}|csrf-token:{{ csrf_token() }}" url="<?= url("Facebook@publishPostView"); ?>" holder=".update-holder" modal="#publish-post" href="">发布帖子</a>
                                     </td>
                                 </tr>
                                 @endforeach
 
                                 @else
                                 <tr>
-                                    <td colspan="9" class="text-center">It's empty here</td>
+                                    <td colspan="9" class="text-center">这里是空的</td>
                                 </tr>
                                 @endif
                             </tbody>
@@ -91,7 +95,7 @@ include("config.php"); // All settings in the $config-Object
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Publish Post</h4>
+                    <h4 class="modal-title">发布帖子</h4>
                 </div>
                 <form class="update-holder simcy-form" id="update-customer-form" action="<?= url("Posting@publishPostFacebook"); ?>" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
                     <div class="loader-box">

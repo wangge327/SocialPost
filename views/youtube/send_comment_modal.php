@@ -1,7 +1,7 @@
 @if($_SESSION["google_login"])
 <div class="modal-body">
 
-    <p>Edit Comment</p>
+    <p>编辑评论</p>
     <div class="form-group">
         <div class="row">
             <div class="col-md-12 ">
@@ -16,22 +16,22 @@
 
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button type="submit" class="btn btn-primary">Send Comment</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+    <button type="submit" class="btn btn-primary">发表评论</button>
 </div>
 @else
 <div class="modal-body">
-    <p style="color:red">No login with Youtube</p>
+    <p style="color:red">没有登录Youtube</p>
     <div class="form-group">
         <div class="row">
             <div class="col-md-12 ">
-                <span>Login information is missed. Please login Youtube to send comment.</span>
+                <span>登录信息丢失。 请登录 Youtube 发送评论。</span>
             </div>
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <a class="btn btn-primary" href="{{env('APP_URL')}}/youtube">Youtube login</a>
+    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+    <a class="btn btn-primary" href="{{env('APP_URL')}}/youtube">Youtube登录</a>
 </div>
 @endif

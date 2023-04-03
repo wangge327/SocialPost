@@ -46,7 +46,7 @@ $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $per
                         location.href = redirect_url;
                     });
                 } else {
-                    alert('User cancelled login or did not fully authorize.');
+                    alert('用户取消登录或未完全授权。');
                 }
             }, {
                 scope: 'public_profile, email, pages_show_list, pages_read_engagement, pages_manage_posts'
@@ -64,13 +64,13 @@ $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $per
         <div class="page-title">
             <div class="pull-right page-actions lower">
                 @if ( count($fb_user) > 0 )
-                <label class="color-red">You have already set Facebook account for posting.</label><br>
-                <label class="color-red">If you set another account please remove current facebook account.</label>
+                <label class="color-red">您已经设置了用于发帖的 Facebook 帐户。</label><br>
+                <label class="color-red">如果您设置另一个帐户，请删除当前的 Facebook 帐户。</label>
                 @else
                 <a class="btn btn-primary" onclick="fb_login()">
                     <!--<a class="btn btn-primary" href="<?= htmlspecialchars($loginUrl)  ?> ">-->
                     <!--<i class="ion-plus-round"></i> 添加Facebook 帐户 -->
-                    Login with Facebook
+                    使用Facebook登入
                 </a>
                 @endif
             </div>
@@ -115,7 +115,7 @@ $loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $per
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="9" class="text-center">It's empty here</td>
+                                <td colspan="9" class="text-center">这里是空的</td>
                             </tr>
                             @endif
                         </tbody>

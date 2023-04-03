@@ -16,6 +16,6 @@
 
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button type="submit" class="btn btn-primary">Publish</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+    <button type="submit" class="btn btn-primary">发布</button>
 </div>

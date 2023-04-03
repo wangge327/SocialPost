@@ -211,7 +211,7 @@ class Youtube
         }
 
 
-        exit(json_encode(responder("success", "Video Registered", "Some videos is set highlight to send comment.", "reload()")));
+        exit(json_encode(responder("success", "视频注册", "某些视频设置了高亮显示以发送评论。", "reload()")));
     }
 
     public function unsetVideoDB()

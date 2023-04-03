@@ -16,14 +16,14 @@ if ($_SESSION["google_login"]) {
     <div class="content">
         <div class="page-title">
             <h3>Youtube视频设置</h3>
-            <p>Please search and set Highlight to send comment to youtube.</p>
+            <p>您可以搜索视频并设置高亮显示以将评论发送到 youtube。</p>
         </div>
         <div class="row margin-0">
             <div class="col-md-11 bg-white" style="padding:20px 10px">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Your Highlight Videos : </label>
+                            <label>您的精彩视频 : </label>
                             <span class="color-red">{{count($youtube_videos)}}</span>
                         </div>
                     </div>
@@ -34,9 +34,9 @@ if ($_SESSION["google_login"]) {
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Page ID</th>
-                                <th>Title</th>
-                                <th class="text-center" style="width:320px;">Action</th>
+                                <th>视频链接</th>
+                                <th>标题</th>
+                                <th class="text-center" style="width:320px;">行动</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,15 +53,15 @@ if ($_SESSION["google_login"]) {
                                 <td><strong>{{$each_video->video_title}}</strong></td>
 
                                 <td class="text-center">
-                                    <a class="btn btn-success send-to-server-click" data="user_id:{{$user->id}}|video_id:{{$each_video->video_id}}|csrf-token:{{ csrf_token() }}" url="<?= url("Youtube@unsetVideoDB"); ?>" warning-title="Are you sure?" warning-message="This Video will be Unset." warning-button="Continue" loader="true">Unset Highlight</a>
-                                    <a class="fetch-display-click btn btn-primary" data="user_id:{{$user->id}}|video_id:{{$each_video->video_id}}|csrf-token:{{ csrf_token() }}" url="<?= url("Youtube@sendCommentView"); ?>" holder=".update-holder" modal="#send-comment" style="margin-left:10px">Send Comment</a>
+                                    <a class="btn btn-success send-to-server-click" data="user_id:{{$user->id}}|video_id:{{$each_video->video_id}}|csrf-token:{{ csrf_token() }}" url="<?= url("Youtube@unsetVideoDB"); ?>" warning-title="你确定吗？" warning-message="此视频将从突出显示中删除。" warning-button="Continue" loader="true">删除突出显示</a>
+                                    <a class="fetch-display-click btn btn-primary" data="user_id:{{$user->id}}|video_id:{{$each_video->video_id}}|csrf-token:{{ csrf_token() }}" url="<?= url("Youtube@sendCommentView"); ?>" holder=".update-holder" modal="#send-comment" style="margin-left:10px">发表评论</a>
                                 </td>
                             </tr>
                             @endforeach
 
                             @else
                             <tr>
-                                <td colspan="9" class="text-center">It's empty here</td>
+                                <td colspan="9" class="text-center">这里是空的</td>
                             </tr>
                             @endif
                         </tbody>
@@ -73,7 +73,7 @@ if ($_SESSION["google_login"]) {
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Search Youtube videos for setting</label>
+                            <label>搜索 Youtube 视频以设置突出显示</label>
                         </div>
                     </div>
                     <div class="row">
@@ -81,7 +81,7 @@ if ($_SESSION["google_login"]) {
                             <input type="text" class="form-control" id="q">
                         </div>
                         <div class="col-md-4">
-                            <button class="btn btn-success" type="button" onclick="search_video()">Search</button>
+                            <button class="btn btn-success" type="button" onclick="search_video()">搜索</button>
                         </div>
                     </div>
                     <br>
@@ -105,7 +105,7 @@ if ($_SESSION["google_login"]) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Send Comment</h4>
+                    <h4 class="modal-title">发表评论</h4>
                 </div>
                 <form class="update-holder simcy-form" id="send-comment-form" action="/youtube/send_comment" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
                     <div class="loader-box">
@@ -174,7 +174,7 @@ if ($_SESSION["google_login"]) {
                 result_html += '</div><br>'
 
             }
-            result_html += '<button type="submit" class="btn btn-primary" style="float:right;">Set Highlight</button>';
+            result_html += '<button type="submit" class="btn btn-primary" style="float:right;">设置亮点</button>';
             $(".result-html").append(result_html);
 
         }

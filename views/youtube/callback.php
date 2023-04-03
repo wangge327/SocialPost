@@ -35,7 +35,7 @@
             success: function(response) {
                 console.log(response);
                 if (response == 'success') {
-                    alert('Youtube login Success!!!');
+                    alert('Youtube登录成功!!!');
                     window.location.href = "<?= url("Youtube@get"); ?>";
                 }
             }

@@ -122,6 +122,25 @@ $reports_items = Database::table("report")->get();
             </ul>
         </li>
 
+        <li class="pushy-submenu yt-submenu" style="cursor:pointer">
+            <a>
+                <label class="menu-icon"><i class="ion-social-youtube"></i> </label>
+                <span class="text">Youtube 管理</span>
+            </a>
+            <ul>
+                <li class="pushy-link">
+                    <a href="<?= url("Youtube@get"); ?>">
+                        <span class="text">Youtube 帐户</span>
+                    </a>
+                </li>
+                <li class="pushy-link">
+                    <a href="<?= url("Youtube@getVideo"); ?>">
+                        <span class="text">Youtube发帖管理</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
         <li class="pushy-submenu tw-submenu" style="cursor:pointer">
             <a>
                 <label class="menu-icon"><i class="ion-social-twitter"></i> </label>
@@ -141,31 +160,7 @@ $reports_items = Database::table("report")->get();
             </ul>
         </li>
 
-        <li class="pushy-submenu yt-submenu" style="cursor:pointer">
-            <a>
-                <label class="menu-icon"><i class="ion-social-youtube"></i> </label>
-                <span class="text">Youtube</span>
-            </a>
-            <ul>
-                <li class="pushy-link">
-                    <a href="<?= url("Youtube@get"); ?>">
-                        <span class="text">Youtube Account</span>
-                    </a>
-                </li>
-                <li class="pushy-link">
-                    <a href="<?= url("Youtube@getVideo"); ?>">
-                        <span class="text">Youtube Videos</span>
-                    </a>
-                </li>
-                <!--
-                <li class="pushy-link">
-                    <a href="<?= url("Youtube@getPost"); ?>">
-                        <span class="text">Youtube发帖管理</span>
-                    </a>
-                </li>
-            -->
-            </ul>
-        </li>
+
 
         <!--
         <li class="pushy-submenu posting-submenu" style="cursor:pointer">
