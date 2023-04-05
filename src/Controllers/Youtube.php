@@ -98,7 +98,7 @@ class Youtube
         //$this->sendCommentAPI(env("GOOGLE_API_KEY"), $_SESSION["google_login_access_token"], input("video_id"), input("comment"));
         $posting_history_id = $this->save_youtube_posting_history($user->id, "Youtube", input("video_id"), input("comment"));
        // Customer::addActionLog("Youtube", "Send Comment", "Video ID : " . input("video_id") . ", Posting history ID: " . $posting_history_id);
-        exit(json_encode(responder("success", "发表评论", input("comment"), "reload()")));
+        exit(json_encode(responder("success", "发表评论",ini_get('default_charset') . ini_get('default_charset'), "reload()")));
         exit(json_encode(responder("success", "发表评论", "已成功向该视频发送评论。", "reload()")));
 
     }
