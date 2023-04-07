@@ -47,7 +47,7 @@ class Youtube
 
         if (isset($callback_array['state'])) {
             if ($callback_array['state'] == 'pass-through') {
-                $google_login_expire = time() + 120;
+                $google_login_expire = time() + 3600;
 
                 $_SESSION["google_login"] = true;
                 $_SESSION["google_login_expire"] = $google_login_expire;
