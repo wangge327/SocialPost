@@ -38,6 +38,10 @@
                     alert('Youtube登录成功!!!');
                     window.location.href = "<?= url("Youtube@get"); ?>";
                 }
+                if (response == 'error') {
+                    alert('Youtube登录 Error!!!');
+                    window.location.href = "<?= url("Youtube@get"); ?>";
+                }
             }
         });
     </script>

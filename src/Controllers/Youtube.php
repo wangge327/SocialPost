@@ -47,7 +47,7 @@ class Youtube
 
         if (isset($callback_array['state'])) {
             if ($callback_array['state'] == 'pass-through') {
-                $google_login_expire = time() + 3600;
+                $google_login_expire = time() + 120;
 
                 $_SESSION["google_login"] = true;
                 $_SESSION["google_login_expire"] = $google_login_expire;
@@ -95,9 +95,13 @@ class Youtube
         header('Content-type: application/json');
         $user = Auth::user();
         
-        $this->sendCommentAPI(env("GOOGLE_API_KEY"), $_SESSION["google_login_access_token"], input("video_id"), input("comment"));
+        $result = $this->sendCommentAPI(env("GOOGLE_API_KEY"), $_SESSION["google_login_access_token"], input("video_id"), input("comment"));
+        if(isset($result['error'])){
+            exit(json_encode(responder("error", "发表评论", json_encode($result['error']), "")));
+        }
         $posting_history_id = $this->save_youtube_posting_history($user->id, "Youtube", input("video_id"), input("comment"));
         Customer::addActionLog("Youtube", "Send Comment", "Video ID : " . input("video_id") . ", Posting history ID: " . $posting_history_id);
+        exit(json_encode(responder("success", "发表评论", json_encode($result), "reload()")));
         exit(json_encode(responder("success", "发表评论", "已成功向该视频发送评论。", "reload()")));
 
     }
@@ -129,7 +133,7 @@ class Youtube
         $result = curl_exec($ch);
         curl_close($ch);
 
-        return json_decode($result);
+        return (array)json_decode($result);
     }
 
     function save_youtube_posting_history($user_id, $social_type, $yt_video_id, $message)
