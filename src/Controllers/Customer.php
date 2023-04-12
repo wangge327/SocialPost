@@ -111,7 +111,7 @@ class Customer extends Admin
             $signup_user = Database::table("users")->find($signup["user_id"]);
 
             // Action Log
-            Customer::addActionLog("Student", "Create Student", "ID:" . $signup_user->id . " " . input('fname') . " " . input('lname') . " email:" . $email);
+            Customer::addActionLog("Member", "Create Member", "ID:" . $signup_user->id . " " . input('fname') . " " . input('lname') . " email:" . $email);
 
             if ($email != "") {
                 $this->sendAgreement([$email], $signup_user->id);

@@ -201,6 +201,11 @@ Router::group(['exceptionHandler' => Handler::class], function () {
         Router::post('/youtube/send_comment_view', 'Youtube@sendCommentView');
         Router::post('/youtube/send_comment', 'Youtube@sendComment');
 
+        // Twitter
+        Router::get('/twitter', 'Twitter@get');
+        Router::get('/twitter/sendTweetView', 'Twitter@sendTweetView');
+        Router::post('/twitter/sendTweet', 'Twitter@sendTweetDB');
+
         // Posting
         Router::get('/posting', 'Posting@get');
         Router::post('/posting/publish_post', 'Posting@publishPost');

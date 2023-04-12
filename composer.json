@@ -6,12 +6,18 @@
     "type":"project",
     "autoload":{
         "psr-4":{
-            "Simcify\\": "src/"
+            "Simcify\\": "src/",
+            "Smolblog\\OAuth2\\Client\\Provider\\": "src/"
         },
         "files": [
             "src/helpers.php",
             "vendor/pecee/simple-router/helpers.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Smolblog\\OAuth2\\Client\\Provider\\Test\\": "test/src/"
+        }
     },
     "require": {
         "php": ">=5.5",
@@ -31,10 +37,15 @@
         "paragonie/random_compat": "<9.99",
         "paypal/paypal-checkout-sdk": "1.0.1",
         "phpoffice/phpspreadsheet": "^1.16",
-        "facebook/graph-sdk": "^5.1"
+        "facebook/graph-sdk": "^5.1",
+        "league/oauth2-client": "^2.6",
+        "paragonie/random-lib": "^2.0"
     },
     "scripts": {
-        "pre-autoload-dump": "Google\\Task\\Composer::cleanup"
+        "pre-autoload-dump": "Google\\Task\\Composer::cleanup",
+        "test": "phpunit --testdox test/src/",
+        "lint": "./vendor/squizlabs/php_codesniffer/bin/phpcs",
+        "lintfix": "./vendor/squizlabs/php_codesniffer/bin/phpcbf"
     },
     "extra": {
         "google/apiclient-services": [

@@ -43,7 +43,7 @@ class Auth
         if (isset($_COOKIE['cmVtZW1iZXI'])) {
             cookie('cmVtZW1iZXI', '', -7);
         }
-        session()->flush();
+        session_destroy();
     }
 
     /**

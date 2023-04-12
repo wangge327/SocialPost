@@ -178,7 +178,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Create Student</h4>
+                    <h4 class="modal-title">Create Member</h4>
                 </div>
                 <form class="simcy-form" id="create-customer-form" action="<?= url("Customer@create"); ?>" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
                     <div class="modal-body">

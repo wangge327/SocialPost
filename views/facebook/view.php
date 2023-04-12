@@ -1,16 +1,5 @@
 {{ view("includes/head", $data); }}
 
-<?php
-/*
-include("config.php"); // All settings in the $config-Object
-$permissions = ['public_profile, email, pages_show_list, pages_read_engagement, pages_manage_posts'];
-$permissions = ['public_profile, email, pages_show_list'];
-
-//로그인 주소 생성. callback 주소 입력
-$loginUrl = $helper->getLoginUrl(env("APP_URL") . url("Facebook@callback"), $permissions);
-*/
-?>
-
 <body>
     <script>
         window.fbAsyncInit = function() {
