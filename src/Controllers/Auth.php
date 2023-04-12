@@ -18,8 +18,6 @@ class Auth
     public function get()
     {
         $enabledguest = $guest = $signingLink = false;
-        
-        print_r($_SESSION);
 
         if (isset($_COOKIE['guest'])) {
             $guest = true;
