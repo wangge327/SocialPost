@@ -101,7 +101,7 @@ class Youtube
         }
         $posting_history_id = $this->save_youtube_posting_history($user->id, "Youtube", input("video_id"), input("comment"));
         Customer::addActionLog("Youtube", "Send Comment", "Video ID : " . input("video_id") . ", Posting history ID: " . $posting_history_id);
-        exit(json_encode(responder("success", "发表评论", json_encode($result), "reload()")));
+
         exit(json_encode(responder("success", "发表评论", "已成功向该视频发送评论。", "reload()")));
 
     }

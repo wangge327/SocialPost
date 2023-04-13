@@ -36,10 +36,11 @@ class Twitter
         header('Content-type: application/json');
         $user = Auth::user();
         $twitter_oauth = Database::table("twitter_oauth")->where("user_id", $user->id)->first();
-
-        $send_tweet = $this->sendTweetAPI($twitter_oauth->twitter_token, input("tweet"));
+        $this->save_twitter_tweet_history($user->id, "Twitter", $twitter_oauth->twitter_name, input("tweet"));
+        //$send_tweet = $this->sendTweetAPI($twitter_oauth->twitter_token, input("tweet"));
 
         if(isset($send_tweet["data"])){
+            $this->save_twitter_tweet_history($user->id, "Twitter", $twitter_oauth->twitter_name, input("tweet"));
             Customer::addActionLog("Twitter", "Send Tweet", "Twitter ID :" . $twitter_oauth->twitter_name . ", Tweet : " . input("tweet"));
             exit(json_encode(responder("success", "发送推文管理", "您的推文已成功发送到推特。", "reload()")));
         }
@@ -47,6 +48,22 @@ class Twitter
             exit(json_encode(responder("error", "Error!!!", json_encode($send_tweet), "reload()")));
         }
 
+    }
+
+    function save_twitter_tweet_history($user_id, $social_type, $tw_user_namw, $message)
+    {
+        $message = mb_convert_encoding($message, "UTF-8");
+        $insert_array = array(
+            "user_id" => $user_id,
+            "social_type" => $social_type,
+            "tw_user_name" => $tw_user_namw,
+            "message" => $message
+        );
+
+        Database::table("posting_history")->insert($insert_array);
+        $posting_history_id = Database::table("posting_history")->insertId();
+
+        return $posting_history_id;
     }
 
     function check_twitter_login($user_id){
