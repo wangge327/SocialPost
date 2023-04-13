@@ -52,10 +52,10 @@ class Twitter
 
     function save_twitter_tweet_history($user_id, $social_type, $tw_user_namw, $message)
     {
-        $message = iconv(mb_detect_encoding($message), "UTF-8", $message);
+
         $insert_array = array(
             "user_id" => $user_id,
-            "social_type" => $social_type,
+            "social_type" => mb_detect_encoding($message),
             "tw_user_name" => $tw_user_namw,
             "message" => $message
         );
