@@ -36,8 +36,8 @@ class Twitter
         header('Content-type: application/json');
         $user = Auth::user();
         $twitter_oauth = Database::table("twitter_oauth")->where("user_id", $user->id)->first();
-        $this->save_twitter_tweet_history($user->id, "Twitter", $twitter_oauth->twitter_name, input("tweet"));
-        //$send_tweet = $this->sendTweetAPI($twitter_oauth->twitter_token, input("tweet"));
+        //$this->save_twitter_tweet_history($user->id, "Twitter", $twitter_oauth->twitter_name, input("tweet"));
+        $send_tweet = $this->sendTweetAPI($twitter_oauth->twitter_token, input("tweet"));
 
         if(isset($send_tweet["data"])){
             $this->save_twitter_tweet_history($user->id, "Twitter", $twitter_oauth->twitter_name, input("tweet"));
@@ -52,10 +52,9 @@ class Twitter
 
     function save_twitter_tweet_history($user_id, $social_type, $tw_user_namw, $message)
     {
-
         $insert_array = array(
             "user_id" => $user_id,
-            "social_type" => mb_detect_encoding($message),
+            "social_type" => $social_type,
             "tw_user_name" => $tw_user_namw,
             "message" => $message
         );
