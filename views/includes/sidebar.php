@@ -48,8 +48,13 @@ $reports_items = Database::table("report")->get();
                     </a>
                 </li>
                 <li class="pushy-link">
-                    <a href="<?= url("Facebook@addPage"); ?>">
+                    <a href="<?= url("Facebook@getPage"); ?>">
                         <span class="text">Facebook Page管理</span>
+                    </a>
+                </li>
+                <li class="pushy-link">
+                    <a href="<?= url("Facebook@publishPost"); ?>">
+                        <span class="text">发布帖子</span>
                     </a>
                 </li>
             </ul>

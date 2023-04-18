@@ -10,11 +10,9 @@ include("config.php"); // All settings in the $config-Object
     {{ view("includes/sidebar", $data); }}
     <div class="content">
         <div class="page-title">
-            <h3>Facebook Pages</h3>
+            <h3>添加Pages</h3>
             <p>您将使用 facebook api 自动获取已注册 facebook 帐户的所有页面。</p>
-            <!--<p>You will get all pages of registered facebook account automatically using facebook api.</p>-->
-            <p>如果您想发布帖子到页面，请点击页面列表中的“发布帖子”按钮。</p>
-            <!--<p>Please click "Publish Post" button from page lists if you want to publish post to page.</p>-->
+            <p>如果您想设置页面发送帖子，请点击“设置”</p>
         </div>
         <div class="row margin-0">
             <div class="col-md-11 bg-white" style="padding:20px 10px">
@@ -70,7 +68,16 @@ include("config.php"); // All settings in the $config-Object
                                     <td><strong>{{$each_fb_page->name}}</strong></td>
 
                                     <td class="text-center">
+                                        @if($each_fb_page->id == $fb_pages->page_id)
+                                        <a class="btn btn-success send-to-server-click" data="status:Unset|user_id:{{$user->id}}|fb_id:{{$fb_user->fb_id}}|page_id:{{$each_fb_page->id}}|page_name:{{$each_fb_page->name}}|page_access_token:{{$each_fb_page->access_token}}|csrf-token:{{ csrf_token() }}" url="<?=url("Facebook@AddPageDB");?>" warning-title="你确定吗？" warning-message="此页面将被取消设置。" warning-button="继续" loader="true" >取消设置</a>
+                                        @else
+                                        <a class="btn btn-primary send-to-server-click" data="status:Set|user_id:{{$user->id}}|fb_id:{{$fb_user->fb_id}}|page_id:{{$each_fb_page->id}}|page_name:{{$each_fb_page->name}}|page_access_token:{{$each_fb_page->access_token}}|csrf-token:{{ csrf_token() }}" url="<?=url("Facebook@AddPageDB");?>" warning-title="你确定吗?" warning-message="此页面将被设置。" warning-button="继续" loader="true" >设置</a>
+                                        @endif
+
+                                    </td>
+                                        <!--
                                         <a class="fetch-display-click btn btn-success" data="user_id:{{$user->id}}|fb_id:{{$fb_user->fb_id}}|page_id:{{$each_fb_page->id}}|page_name:{{$each_fb_page->name}}|page_access_token:{{$each_fb_page->page_token}}|csrf-token:{{ csrf_token() }}" url="<?= url("Facebook@publishPostView"); ?>" holder=".update-holder" modal="#publish-post" href="">发布帖子</a>
+                                    -->
                                     </td>
                                 </tr>
                                 @endforeach

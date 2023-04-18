@@ -113,42 +113,6 @@ class Posting
         return view('posting/history', $data);
     }
 
-    function facebook_publish_post_api($page_id, $page_token, $message)
-    {
-        $ch = curl_init();
-        $url = "https://graph.facebook.com/" . $page_id . "/feed";
-        $postdata = "message=" . $message . "&access_token=" . $page_token;
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_REFERER, $url);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-        curl_setopt($ch, CURLOPT_POST, 1);
-
-        $result = curl_exec($ch);
-        $result = json_decode($result);
-        return $result;
-    }
-
-    public function save_posting_history($user_id, $social_type, $fb_id, $fb_page_id, $fb_post_id, $message)
-    {
-        $insert_array = array(
-            "user_id" => $user_id,
-            "social_type" => $social_type,
-            "fb_id" => $fb_id,
-            "fb_page_id" => $fb_page_id,
-            "fb_post_id" => $fb_post_id,
-            "message" => $message
-        );
-
-        Database::table("posting_history")->insert($insert_array);
-        $posting_history_id = Database::table("posting_history")->insertId();
-
-        return $posting_history_id;
-    }
-
     function array_to_string($t_array)
     {
         $return_str = "";

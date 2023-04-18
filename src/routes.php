@@ -180,14 +180,18 @@ Router::group(['exceptionHandler' => Handler::class], function () {
 
         // Facebook
         Router::get('/facebook', 'Facebook@get');
+        Router::get('/facebook/getPage', 'Facebook@getPage');
         Router::get('/facebook/callback', 'Facebook@callback');
         Router::post('/facebook/add_fb_account', 'Facebook@addFbAccount');
+        Router::post('/facebook/remove_page', 'Facebook@removePage');
+        Router::get('/facebook/publish_post', 'Facebook@publishPost');
+        Router::post('/facebook/publish_postDB', 'Facebook@publishPostDB');
         Router::post('/facebook/publish_post_view', 'Facebook@publishPostView');
         Router::post('/facebook/update', 'Facebook@update');
         Router::post('/facebook/update/view', 'Facebook@updateview');
         Router::post('/facebook/delete', 'Facebook@delete');
         Router::post('/facebook/create', 'Facebook@create');
-        Router::get('/facebook/addPage', 'Facebook@addPage');
+        Router::get('/facebook/addPage/{fb_id}', 'Facebook@addPage');
         Router::post('/facebook/addPageDB', 'Facebook@addPageDB');
 
         // Youtube

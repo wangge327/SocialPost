@@ -7,9 +7,15 @@ if (isset($_GET['access_token'])) {
     $access_token_string = $_GET['access_token'];
 
     $user_details = "https://graph.facebook.com/me?fields=email,name,id,birthday,gender&access_token=" . $access_token_string;
-
     $response = file_get_contents($user_details);
     $response_array = json_decode($response);
+
+    $longlive_details = "https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&";
+    $longlive_details .= "client_id=". env("FACEBOOK_APP_ID");
+    $longlive_details .= "&client_secret=" . env("FACEBOOK_APP_SECRET");
+    $longlive_details .= "&fb_exchange_token=" . $access_token_string;
+    $lv_response = file_get_contents($longlive_details);
+    $lv_response_array = json_decode($lv_response);
 }
 ?>
 
@@ -32,7 +38,7 @@ if (isset($_GET['access_token'])) {
                     <input type="hidden" name="fb_name" value="<?= $response_array->name ?>">
                     <input type="hidden" name="fb_email" value="<?= $response_array->email ?>">
                     <input type="hidden" name="fb_access_token" value="<?= $access_token_string ?>">
-                    <input type="hidden" name="fb_long_lived_access_token" value="<?= $access_token_string ?>">
+                    <input type="hidden" name="fb_long_lived_access_token" value="<?= $lv_response_array->access_token ?>">
 
                     <div class="form-group">
                         <div class="row">
@@ -64,8 +70,7 @@ if (isset($_GET['access_token'])) {
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary">Save</button>
-                                <!--<button type="submit" class="btn btn-primary">保存</button>-->
+                                <button type="submit" class="btn btn-primary">保存</button>
                             </div>
                         </div>
                     </div>
