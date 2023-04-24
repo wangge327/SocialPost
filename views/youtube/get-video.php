@@ -43,7 +43,7 @@ if ($_SESSION["google_login"]) {
                                 <th>No</th>
                                 <th>视频链接</th>
                                 <th>标题</th>
-                                <th class="text-center" style="width:320px;">行动</th>
+                                <th class="text-right" style="width:320px;">行动</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,9 +59,8 @@ if ($_SESSION["google_login"]) {
                                 </td>
                                 <td><strong>{{$each_video->video_title}}</strong></td>
 
-                                <td class="text-center">
+                                <td class="text-right">
                                     <a class="btn btn-success send-to-server-click" data="user_id:{{$user->id}}|video_id:{{$each_video->video_id}}|csrf-token:{{ csrf_token() }}" url="<?= url("Youtube@unsetVideoDB"); ?>" warning-title="你确定吗？" warning-message="此视频将从突出显示中删除。" warning-button="Continue" loader="true">删除突出显示</a>
-                                    <a class="fetch-display-click btn btn-primary" data="user_id:{{$user->id}}|video_id:{{$each_video->video_id}}|csrf-token:{{ csrf_token() }}" url="<?= url("Youtube@sendCommentView"); ?>" holder=".update-holder" modal="#send-comment" style="margin-left:10px">发表评论</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -95,7 +94,6 @@ if ($_SESSION["google_login"]) {
 
                     <form class="simcy-form" action="<?= url("Youtube@chooseVideoDB"); ?>" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="csrf-token" value="{{ csrf_token() }}" />
-                        <input type="hidden" name="group_id" value="{{ $youtube_group->id }}" />
                         <input type="hidden" id="highlight-video-json" value="{{json_encode($youtube_videos)}}" />
                         <div class="search-result light-card table-responsive p-b-3em result-html">
 
@@ -107,23 +105,6 @@ if ($_SESSION["google_login"]) {
         </div>
     </div>
 
-    <!-- Send Comment Modal -->
-    <div class="modal fade" id="send-comment" role="dialog">
-        <div class="close-modal" data-dismiss="modal">&times;</div>
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">发表评论</h4>
-                </div>
-                <form class="update-holder simcy-form" id="send-comment-form" action="/youtube/send_comment" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
-                    <div class="loader-box">
-                        <div class="circle-loader"></div>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
 
     <!-- footer -->
     {{ view("includes/footer"); }}
@@ -154,7 +135,8 @@ if ($_SESSION["google_login"]) {
                 data: {
                     'q': $("#q").val(),
                     'csrf-token': '{{csrf_token()}}',
-                    'user_id': '{{$user->id}}'
+                    'user_id': '{{$user->id}}',
+                    'group_id': '{{$youtube_group->id}}'
                 },
                 dataType: "json",
                 success: function(response) {

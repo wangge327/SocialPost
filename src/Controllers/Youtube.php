@@ -18,9 +18,15 @@ class Youtube
 
     public function getGroup(){
         $user = Auth::user();
+        $youtube_group = Database::table("youtube_group")->where("user_id", $user->id)->get();
+        foreach($youtube_group as $each_group){
+            $youtube_videos = Database::table("youtube_videos")->where("user_id", $user->id)->where("group_id", $each_group->id)->get();
+            $each_group->youtube_videos = $youtube_videos;
+        }
+
         $data = array(
             "user" => $user,
-            "youtube_group" => Database::table("youtube_group")->where("user_id", $user->id)->get()
+            "youtube_group" => $youtube_group
         );
         return view('youtube/group', $data);
     }
@@ -127,20 +133,33 @@ class Youtube
 
     public function sendComment()
     {
+        $user = Auth::user();
+        $youtube_group = Database::table("youtube_group")->where("user_id", $user->id)->get();
+        $data = array(
+            "user" => Auth::user(),
+            "youtube_group" => $youtube_group,
+        );
 
+        return view('youtube/send_comment', $data);
     }
 
     public function sendCommentDB()
     {
         header('Content-type: application/json');
         $user = Auth::user();
-        
-        $result = $this->sendCommentAPI(env("GOOGLE_API_KEY"), $_SESSION["google_login_access_token"], input("video_id"), input("comment"));
-        if(isset($result['error'])){
-            exit(json_encode(responder("error", "发表评论", json_encode($result['error']), "")));
+        if(!$_SESSION["google_login"])
+            exit(json_encode(responder("error", "发表评论", "您应该登录Youtube。", "")));
+
+        $youtube_videos = Database::table("youtube_videos")->where("user_id", $user->id)->where("group_id", input("group_id"))->get();
+        foreach($youtube_videos as $each_video){
+            $result = $this->sendCommentAPI(env("GOOGLE_API_KEY"), $_SESSION["google_login_access_token"], $each_video->video_id, input("comment"));
+            if(isset($result['error'])){
+                exit(json_encode(responder("error", "发表评论", json_encode($result['error']), "")));
+            }
+            $posting_history_id = $this->save_youtube_posting_history($user->id, "Youtube", input("video_id"), input("comment"));
+            Customer::addActionLog("Youtube", "Send Comment", "Video ID : " . input("video_id") . ", Posting history ID: " . $posting_history_id);
+
         }
-        $posting_history_id = $this->save_youtube_posting_history($user->id, "Youtube", input("video_id"), input("comment"));
-        Customer::addActionLog("Youtube", "Send Comment", "Video ID : " . input("video_id") . ", Posting history ID: " . $posting_history_id);
 
         exit(json_encode(responder("success", "发表评论", "已成功向该视频发送评论。", "reload()")));
 

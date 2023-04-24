@@ -206,7 +206,7 @@ Router::group(['exceptionHandler' => Handler::class], function () {
         Router::post('/youtube/chooseVideoDB', 'Youtube@chooseVideoDB');
         Router::post('/youtube/unsetVideoDB', 'Youtube@unsetVideoDB');
         Router::get('/youtube/send_comment', 'Youtube@sendComment');
-        Router::post('/youtube/send_comment', 'Youtube@sendCommentDB');
+        Router::post('/youtube/send_commentDB', 'Youtube@sendCommentDB');
 
         // Twitter
         Router::get('/twitter', 'Twitter@get');

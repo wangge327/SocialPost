@@ -41,7 +41,7 @@
                                     {{$each_group->name}}
                                 </td>
                                 <td class="text-center" >
-                                    4
+                                    {{count($each_group->youtube_videos)}}
                                 </td>
                                 <td class="text-right">
                                     <a class="btn btn-success" href="<?= url("Youtube@getVideo"); ?>{{ $each_group->id }}">编辑集团</a>
