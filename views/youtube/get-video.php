@@ -15,16 +15,23 @@ if ($_SESSION["google_login"]) {
     {{ view("includes/sidebar", $data); }}
     <div class="content">
         <div class="page-title">
-            <h3>Youtube视频设置</h3>
-            <p>您可以搜索视频并设置高亮显示以将评论发送到 youtube。</p>
+            <br>
+            <div class="row ">
+                <div class="col-md-3">
+                    <a class="btn btn-primary" href="<?= url("Youtube@getGroup"); ?>" >返回集团</a>
+                </div>
+            </div>
+            <br>
+            <h3>编辑集团</h3>
+            <p>您可以通过搜索设置精彩视频。。</p>
         </div>
         <div class="row margin-0">
             <div class="col-md-11 bg-white" style="padding:20px 10px">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-12">
-                            <label>您的精彩视频 : </label>
-                            <span class="color-red">{{count($youtube_videos)}}</span>
+                            <label>集团名字 : </label>
+                            <span class="color-red">{{$youtube_group->name}}</span>
                         </div>
                     </div>
                 </div>
@@ -88,6 +95,7 @@ if ($_SESSION["google_login"]) {
 
                     <form class="simcy-form" action="<?= url("Youtube@chooseVideoDB"); ?>" data-parsley-validate="" loader="true" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="csrf-token" value="{{ csrf_token() }}" />
+                        <input type="hidden" name="group_id" value="{{ $youtube_group->id }}" />
                         <input type="hidden" id="highlight-video-json" value="{{json_encode($youtube_videos)}}" />
                         <div class="search-result light-card table-responsive p-b-3em result-html">
 

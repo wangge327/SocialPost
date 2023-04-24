@@ -196,14 +196,17 @@ Router::group(['exceptionHandler' => Handler::class], function () {
 
         // Youtube
         Router::get('/youtube', 'Youtube@get');
+        Router::get('/youtube/getGroup', 'Youtube@getGroup');
         Router::get('/youtube/callback', 'Youtube@callback');
         Router::post('/youtube/callbackajax', 'Youtube@callbackAjax');
-        Router::get('/youtube/getVideo', 'Youtube@getVideo');
+        Router::post('/youtube/createGroup', 'Youtube@createGroup');
+        Router::post('/youtube/deleteGroup', 'Youtube@deleteGroup');
+        Router::get('/youtube/getVideo/{group_id}', 'Youtube@getVideo');
         Router::post('/youtube/searchVideoAjax', 'Youtube@searchVideoAjax');
         Router::post('/youtube/chooseVideoDB', 'Youtube@chooseVideoDB');
         Router::post('/youtube/unsetVideoDB', 'Youtube@unsetVideoDB');
-        Router::post('/youtube/send_comment_view', 'Youtube@sendCommentView');
-        Router::post('/youtube/send_comment', 'Youtube@sendComment');
+        Router::get('/youtube/send_comment', 'Youtube@sendComment');
+        Router::post('/youtube/send_comment', 'Youtube@sendCommentDB');
 
         // Twitter
         Router::get('/twitter', 'Twitter@get');

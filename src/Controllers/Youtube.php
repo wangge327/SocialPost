@@ -11,23 +11,57 @@ class Youtube
     {
         $user = Auth::user();
         $data = array(
-            "user" => $user,
-            "fb_user" => Database::table("facebook_account")->where("user_id", $user->id)->get()
+            "user" => $user
         );
         return view('youtube/view', $data);
     }
 
-    public function getVideo()
+    public function getGroup(){
+        $user = Auth::user();
+        $data = array(
+            "user" => $user,
+            "youtube_group" => Database::table("youtube_group")->where("user_id", $user->id)->get()
+        );
+        return view('youtube/group', $data);
+    }
+
+    public function getVideo($group_id)
     {
         $user = Auth::user();
-        $youtube_videos = Database::table("youtube_videos")->where("user_id", $user->id)->get();
+        $youtube_group = Database::table("youtube_group")->where("id", $group_id)->first();
+        $youtube_videos = Database::table("youtube_videos")->where("user_id", $user->id)->where("group_id", $group_id)->get();
 
         $data = array(
             "user" => Auth::user(),
+            "youtube_group" => $youtube_group,
             "youtube_videos" => $youtube_videos,
         );
 
         return view('youtube/get-video', $data);
+    }
+
+    public function createGroup(){
+        header('Content-type: application/json');
+        $user = Auth::user();
+
+        $insert_array = array(
+            "user_id" => $user->id,
+            "name" => input('gname')
+        );
+
+        Database::table("youtube_group")->insert($insert_array);
+
+        Customer::addActionLog("Youtube", "Create Group", "Group Name:" . input('gname'));
+        exit(json_encode(responder("success", "创建了新的 Youtube集团 : ", input('gname'), "reload()")));
+    }
+
+    public function deleteGroup(){
+        $youtube_group = Database::table("youtube_group")->where("id", input("group_id"))->first();
+        header('Content-type: application/json');
+        Database::table("youtube_group")->where("id", input("group_id"))->delete();
+        Customer::addActionLog("Youtube", "Delete Group", "Delete group name : " . $youtube_group->name);
+
+        exit(json_encode(responder("success", "集团删除。!", "您的集团已删除。", "reload()")));
     }
 
     public function callback()
@@ -76,6 +110,7 @@ class Youtube
         foreach ($search_list['items'] as $each_list) {
             $t_array = array();
             $t_array['user_id'] = input("user_id");
+            $t_array['group_id'] = input("group_id");
             $t_array['video_id'] = $each_list['id']['videoId'];
             $t_array['video_title'] = $each_list['snippet']['title'];
             $t_array['video_description'] = $each_list['snippet']['description'];
@@ -91,6 +126,11 @@ class Youtube
     }
 
     public function sendComment()
+    {
+
+    }
+
+    public function sendCommentDB()
     {
         header('Content-type: application/json');
         $user = Auth::user();
@@ -149,19 +189,6 @@ class Youtube
         $posting_history_id = Database::table("posting_history")->insertId();
 
         return $posting_history_id;
-    }
-
-    public function sendCommentView()
-    {
-        $data = array(
-            "user_id" => input("user_id"),
-            "video_id" => input("video_id"),
-            //"comment_thread" => $this->getCommentThreadAPI(env("GOOGLE_API_KEY"), input("video_id")),
-            "comment_thread" => "",
-            "page_access_token" => input("page_access_token")
-        );
-
-        return view('youtube/send_comment_modal', $data);
     }
 
     function check_video_set($youtube_videos_array, $t_video_id)

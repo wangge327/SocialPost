@@ -68,12 +68,17 @@ $reports_items = Database::table("report")->get();
             <ul>
                 <li class="pushy-link">
                     <a href="<?= url("Youtube@get"); ?>">
-                        <span class="text">Youtube 帐户</span>
+                        <span class="text">Youtube帐户</span>
                     </a>
                 </li>
                 <li class="pushy-link">
-                    <a href="<?= url("Youtube@getVideo"); ?>">
-                        <span class="text">Youtube发帖管理</span>
+                    <a href="<?= url("Youtube@getGroup"); ?>">
+                        <span class="text">集团管理</span>
+                    </a>
+                </li>
+                <li class="pushy-link">
+                    <a href="<?= url("Youtube@sendComment"); ?>">
+                        <span class="text">发送评论</span>
                     </a>
                 </li>
             </ul>
