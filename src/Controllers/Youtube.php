@@ -111,9 +111,19 @@ class Youtube
 
     public function searchVideoAjax()
     {
+        $user = Auth::user();
+        $youtube_videos = Database::table("youtube_videos")->where("user_id", $user->id)->where("group_id", input("group_id"))->get();
         $return = array();
         $search_list = $this->seachVideoAPI(env("GOOGLE_API_KEY"), urlencode(input("q")));
         foreach ($search_list['items'] as $each_list) {
+            $video_exist = false;
+            foreach($youtube_videos as $each_video){
+                if($each_video->video_id == $each_list['id']['videoId'])
+                    $video_exist = true;
+            }
+            if($video_exist)
+                continue;
+
             $t_array = array();
             $t_array['user_id'] = input("user_id");
             $t_array['group_id'] = input("group_id");
@@ -154,11 +164,13 @@ class Youtube
         foreach($youtube_videos as $each_video){
             $result = $this->sendCommentAPI(env("GOOGLE_API_KEY"), $_SESSION["google_login_access_token"], $each_video->video_id, input("comment"));
             if(isset($result['error'])){
-                exit(json_encode(responder("error", "发表评论", json_encode($result['error']), "")));
+                Customer::addActionLog("Youtube", "Send Comment Error", "Video ID : " . $each_video->video_id . ", Error: " . json_encode($result['error']));
+                //exit(json_encode(responder("error", "发表评论", json_encode($result['error']), "")));
             }
-            $posting_history_id = $this->save_youtube_posting_history($user->id, "Youtube", input("video_id"), input("comment"));
-            Customer::addActionLog("Youtube", "Send Comment", "Video ID : " . input("video_id") . ", Posting history ID: " . $posting_history_id);
-
+            else{
+                $posting_history_id = $this->save_youtube_posting_history($user->id, "Youtube", $each_video->video_id, input("comment"));
+                Customer::addActionLog("Youtube", "Send Comment", "Video ID : " . $each_video->video_id . ", Posting history ID: " . $posting_history_id);
+            }
         }
 
         exit(json_encode(responder("success", "发表评论", "已成功向该视频发送评论。", "reload()")));
@@ -221,7 +233,7 @@ class Youtube
 
     function seachVideoAPI($key, $query)
     {
-        $url = 'https://www.googleapis.com/youtube/v3/search?part=snippet,id&maxResults=20&type=video&key=' . $key;
+        $url = 'https://www.googleapis.com/youtube/v3/search?part=snippet,id&maxResults=30&type=video&key=' . $key;
         $url .= '&q=' . $query;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
