@@ -168,7 +168,7 @@ class Youtube
                 //exit(json_encode(responder("error", "发表评论", json_encode($result['error']), "")));
             }
             else{
-                $posting_history_id = $this->save_youtube_posting_history($user->id, "Youtube", $each_video->video_id, input("comment"));
+                $posting_history_id = $this->save_youtube_posting_history($user->id, "Youtube", $each_video->video_id, urlencode(input("comment")));
                 Customer::addActionLog("Youtube", "Send Comment", "Video ID : " . $each_video->video_id . ", Posting history ID: " . $posting_history_id);
             }
         }

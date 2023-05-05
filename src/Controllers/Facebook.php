@@ -83,10 +83,10 @@ class Facebook
                 exit(json_encode(responder("error", "Failed", "Failed to publish post to Facebook" . json_encode($facebook_publish->error), "reload()")));
             }
 
-            $this->save_posting_history($user->id, "Facebook", $each_page->fb_id, $each_page->page_id, $fb_post_id, input("message"));
+            $this->save_posting_history($user->id, "Facebook", $each_page->fb_id, $each_page->page_id, $fb_post_id, urlencode(input("message")));
 
             // Action Log
-            Customer::addActionLog("Posting", "Publish Post to Facecebook", "Facebook ID:" . $each_page->fb_id .  ", Posting Content: " . input("message"));
+            Customer::addActionLog("Posting", "Publish Post to Facecebook", "Facebook ID:" . $each_page->fb_id .  ", Posting Content: " . urlencode(input("message")));
         }
         exit(json_encode(responder("success", "Success", "此帖子已成功发布到 facebook 页面。", "reload()")));
 
